@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace CodeBase.Hero
 {
-	public class BuildingHealth : MonoBehaviour, IHealth, ISavedProgressReader
+	public class KingHealth : MonoBehaviour, IHealth, ISavedProgressReader
 	{
 		public MainBuildingAnimator Animator;
 		private State _state;
@@ -41,8 +41,7 @@ namespace CodeBase.Hero
 				Die();
 				return;
 			}
-
-			transform.localScale *= 0.99f;
+			
 			Current -= damage;
 			Animator.PlayHit();
 		}
@@ -57,7 +56,7 @@ namespace CodeBase.Hero
 
 		public void LoadProgress(PlayerProgress progress)
 		{
-			_state = progress.HeroState;
+			_state = progress.KingState;
 			HealthChanged?.Invoke();
 		}
 		

@@ -58,6 +58,7 @@ namespace CodeBase.Infrastructure.States
 		public void Exit()
 		{
 			_progressService.Progress.KillData.ResetKillData();
+			_progressService.Progress.KillData.ResetWaveData();
 			_loadingCurtain.Hide();
 		}
 
@@ -86,18 +87,18 @@ namespace CodeBase.Infrastructure.States
 			LevelStaticData levelData = LevelStaticData();
 			_hero = _gameFactory.CreateHero(levelData.InitialHeroPosition);
 			CameraFollow(_hero);
-			InitMainPumpkin(levelData);
+			GameObject king = InitKing(levelData);
 			InitGrid();
 			InitSpawners(levelData);
 			//InitBossSpawners();
 			InitLootPieces();
-			InitHud(_hero);
+			InitHud(_hero, king);
 		}
 
 		private void InitGrid() =>
 			_buildingService.Init();
 
-		private void InitMainPumpkin(LevelStaticData levelData) =>
+		private GameObject InitKing(LevelStaticData levelData) =>
 			_gameFactory.CreateKing(levelData.InitialMainBuildingPosition);
 
 		private void InitSpawners(LevelStaticData levelData)
@@ -131,12 +132,11 @@ namespace CodeBase.Infrastructure.States
 			}
 		}
 
-		private void InitHud(GameObject hero)
+		private void InitHud(GameObject hero, GameObject king)
 		{
 			Hud hud = _gameFactory.CreateHud();
 			hud.Construct(_buildingService);
-			/*hud.GetComponentInChildren<ActorUI>().Construct(hero.GetComponent<HeroHealth>(), _progressService);
-			hud.GetComponentInChildren<GamePlayingClockUI>().Construct(_timerService);*/
+			hud.GetComponentInChildren<ActorUI>().Construct(hero.GetComponent<IHealth>(), king.GetComponent<IHealth>(), _progressService);
 		}
 
 		private void CameraFollow(GameObject hero) =>

@@ -43,13 +43,9 @@ namespace CodeBase.UI.Elements
 			{
 				button.enabled = false;
 			}
+			
 			_buildingService.IsActive = false;
-			_attackButton.DOLocalMove(_attackButtonInGamePosition.localPosition, _appearDuration).OnComplete( () =>
-			{
-				Debug.Log(_attackButtonInGamePosition.localPosition);
-				Debug.Log(_attackButton.localPosition);
-			});
-		
+			_attackButton.DOLocalMove(_attackButtonInGamePosition.localPosition, _appearDuration);
 		}
 
 		public void DisappearAttackButton()

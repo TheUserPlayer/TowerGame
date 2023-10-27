@@ -937,7 +937,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614613}
   - {fileID: 8926484042661614647}
   dataType: 0
-  capacity: 500
+  capacity: 1000
   stripCapacity: 16
   particlePerStripCount: 16
   needsComputeBounds: 0
@@ -1838,7 +1838,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1767, y: 319}
+  m_UIPosition: {x: 1780, y: 324}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:

@@ -45,6 +45,19 @@ namespace CodeBase.UI.Services.Factory
 			}
 		}
 
+		public void CreateWinPanel()
+		{
+			WindowConfig config = _staticData.ForWinPanel(WindowId.WinPanel);
+			ScorePanel scorePanel = Object.Instantiate(config.ScorePrefab, _uiRoot); 
+		//	scorePanel.ScoreText.text = $"Score: {_progressService.Progress.LootData.Points}";
+		}
+		
+		public void CreateDeathPanel()
+		{
+			WindowConfig config = _staticData.ForDeathPanel(WindowId.DeathPanel);
+			DeathPanel deathPanel = Object.Instantiate(config.DeathPrefab, _uiRoot); 
+			//deathPanel.DeathText.text = $"You lost all your money: {_progressService.Progress.LootData.Points}";
+		}
 
 		public void CreateUIRoot() =>
 			_uiRoot = _assets.Instantiate(UIRootPath).transform;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
@@ -20,7 +21,7 @@ namespace CodeBase.Infrastructure.States
 		private readonly IGameFactory _gameFactory;
 		private readonly SceneLoader _sceneLoader;
 		private IHealth _heroHealth;
-		private float _monstersForWave = 2;
+		private float _monstersForWave = 4;
 		private List<GameObject> _monstersInGame = new List<GameObject>();
 
 		public GameLoopAttackState(GameStateMachine stateMachine, IWindowService windowService, IPersistentProgressService progressService, LoadingCurtain loadingCurtain,
@@ -39,18 +40,19 @@ namespace CodeBase.Infrastructure.States
 			DescribeHeroDeath();
 			StopWave();
 			_gameFactory.HUD.DisappearAttackButton();
-			_monstersForWave += 7;
+			_monstersForWave += 4;
 			_gameFactory.Monsters.Clear();
 			_progressService.Progress.KillData.ResetKillData();
+			_progressService.Progress.KillData.NextWave();
 			_gameFactory.MonsterCreated -= MonsterCreated;
-			_progressService.Progress.KillData.Changed -= KilledMobsChanged;
+			_progressService.Progress.KillData.LootChanged -= KilledMobsChanged;
 		}
 
 		public void Enter()
 		{
 			_gameFactory.HUD.AppearAttackButton();
 			_gameFactory.MonsterCreated += MonsterCreated;
-			_progressService.Progress.KillData.Changed += KilledMobsChanged;
+			_progressService.Progress.KillData.LootChanged += KilledMobsChanged;
 			_gameFactory.HeroGameObject.TryGetComponent(out _heroHealth);
 			SubscribeHeroDeath();
 
@@ -60,16 +62,13 @@ namespace CodeBase.Infrastructure.States
 			Hid();
 		}
 
-		public void Update()
-		{
-
-		}
+		public void Update() { }
 
 		private void DescribeHeroDeath()
 		{
 			_gameFactory.HeroGameObject.TryGetComponent(out HeroDeath heroDeath);
 			heroDeath.Restart -= Restart;
-			_gameFactory.MainPumpkinGameObject.TryGetComponent(out BuildingHealth health);
+			_gameFactory.MainPumpkinGameObject.TryGetComponent(out KingHealth health);
 			health.Restart -= Restart;
 		}
 
@@ -90,10 +89,13 @@ namespace CodeBase.Infrastructure.States
 				_stateMachine.Enter<GameLoopBuildingState>();
 		}
 
+
+
+
 		private void StartWave()
 		{
 			float result = _monstersForWave / _gameFactory.Spawners.Count;
-			
+
 			foreach (SpawnPoint spawner in _gameFactory.Spawners)
 				spawner.StartSpawn(result);
 		}
@@ -110,7 +112,7 @@ namespace CodeBase.Infrastructure.States
 		{
 			_gameFactory.HeroGameObject.TryGetComponent(out HeroDeath heroDeath);
 			heroDeath.Restart += Restart;
-			_gameFactory.MainPumpkinGameObject.TryGetComponent(out BuildingHealth health);
+			_gameFactory.MainPumpkinGameObject.TryGetComponent(out KingHealth health);
 			health.Restart += Restart;
 		}
 
@@ -126,7 +128,7 @@ namespace CodeBase.Infrastructure.States
 		{
 			_timerService.StopTimer();
 		}
-		
+
 		private void LevelUp()
 		{
 			_heroHealth.LevelUp();

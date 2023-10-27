@@ -14,12 +14,16 @@ namespace CodeBase.Infrastructure.Services.StaticData
     private const string LevelsDataPath = "StaticData/Levels";
     private const string HeroDataPath = "StaticData/Hero";
     private const string TowersDataPath = "StaticData/Towers";
+    private const string StaticDataWinPanel = "StaticData/UI/WinPanel";
     private const string StaticDataWindowPath = "StaticData/UI/WindowBase";
+    private const string StaticDataDeathPanel= "StaticData/UI/DeathPanel";
 
     private Dictionary<MonsterTypeId, MonsterStaticData> _monsters;
     private Dictionary<TowerType, TowerStaticData> _towers;
     private Dictionary<string, LevelStaticData> _levels;
     private Dictionary<WindowId, WindowConfig> _windowConfigs;
+    private Dictionary<WindowId, WindowConfig> _winPanelConfigs;
+    private Dictionary<WindowId, WindowConfig> _deathPanelConfigs;
     private HeroStaticData _hero;
 
     public void Load()
@@ -29,6 +33,16 @@ namespace CodeBase.Infrastructure.Services.StaticData
       _towers = Resources
         .LoadAll<TowerStaticData>(TowersDataPath)
         .ToDictionary(x => x.TowerTypeId, x => x);
+      
+      _deathPanelConfigs = Resources
+        .Load<WindowStaticData>(StaticDataDeathPanel)
+        .Configs
+        .ToDictionary(x => x.WindowId, x => x);
+      
+      _winPanelConfigs = Resources
+        .Load<WindowStaticData>(StaticDataWinPanel)
+        .Configs
+        .ToDictionary(x => x.WindowId, x => x);
       
       _monsters = Resources
         .LoadAll<MonsterStaticData>(MonstersDataPath)
@@ -59,8 +73,18 @@ namespace CodeBase.Infrastructure.Services.StaticData
         ? staticData
         : null;
     
+    public WindowConfig ForWinPanel(WindowId windowId) =>
+      _winPanelConfigs.TryGetValue(windowId, out WindowConfig windowConfig)
+        ? windowConfig
+        : null;    
+    
     public WindowConfig ForWindow(WindowId window) =>
       _windowConfigs.TryGetValue(window, out WindowConfig windowConfig)
+        ? windowConfig
+        : null;
+    
+    public WindowConfig ForDeathPanel(WindowId windowId) =>
+      _deathPanelConfigs.TryGetValue(windowId, out WindowConfig windowConfig)
         ? windowConfig
         : null;
 

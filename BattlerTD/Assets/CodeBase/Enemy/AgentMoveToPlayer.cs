@@ -19,6 +19,7 @@ namespace CodeBase.Enemy
 		public Transform _targetTransform;
 		public Transform _cachedPumpkinTransform;
 		private float _cachedSpeed;
+		private bool _isSpeedDecreased;
 
 		public Transform TargetTransform
 		{
@@ -48,6 +49,9 @@ namespace CodeBase.Enemy
 			if (TargetTransform && IsHeroNotReached())
 				Agent.destination = TargetTransform.position;
 
+			if (_isSpeedDecreased)
+				return;
+
 			if (CanMove)
 				StartMoving();
 			else
@@ -64,6 +68,24 @@ namespace CodeBase.Enemy
 		{
 			Agent.stoppingDistance = 2.2f;
 			TargetTransform = _cachedPumpkinTransform;
+		}
+
+		public void RestoreSpeed()
+		{
+			if (_isSpeedDecreased)
+			{
+				_isSpeedDecreased = false;
+				Agent.speed = _cachedSpeed;
+			}
+		}
+
+		public void DecreaseSpeed()
+		{
+			if (!_isSpeedDecreased)
+			{
+				_isSpeedDecreased = true;
+				Agent.speed *= 0.5f;
+			}
 		}
 
 		public void StartMoving() =>

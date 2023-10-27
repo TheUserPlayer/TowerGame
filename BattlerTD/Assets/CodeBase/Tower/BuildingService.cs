@@ -155,7 +155,8 @@ namespace CodeBase.Tower
 				return;
 
 			Debug.Log(towerType);
-			InitializeWithObject(towerType);
+			if ( towerType!= TowerType.None)
+				InitializeWithObject(towerType);
 		}
 
 		private static TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)

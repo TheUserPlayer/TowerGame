@@ -98,7 +98,9 @@ namespace CodeBase.Infrastructure.Services.Factory
 		{
 			_hud = InstantiateRegistered(AssetPath.HudPath).GetComponent<Hud>();
 			_hud.GetComponentInChildren<LootCounter>()
-				.Construct(_persistentProgressService.Progress.WorldData);
+				.Construct(_persistentProgressService.Progress.WorldData);	
+			_hud.GetComponentInChildren<WaveCounter>()
+				.Construct(_persistentProgressService.Progress.KillData);
 
 			_towerPanel = _hud.GetComponentInChildren<TowerPanel>();
 			foreach (OpenWindowButton openWindowButton in HUD.GetComponentsInChildren<OpenWindowButton>())
@@ -127,7 +129,7 @@ namespace CodeBase.Infrastructure.Services.Factory
 			health.Current = monsterData.Hp;
 			health.Max = monsterData.Hp;
 
-			monster.GetComponent<ActorUI>()?.Construct(health, _persistentProgressService);
+			//monster.GetComponent<ActorUI>()?.Construct(health, _persistentProgressService);
 			monster.GetComponent<NavMeshAgent>().speed = monsterData.MoveSpeed;
 
 			EnemyAttack enemyAttack = monster.GetComponentInChildren<EnemyAttack>();
@@ -164,7 +166,7 @@ namespace CodeBase.Infrastructure.Services.Factory
 			health.Current = monsterData.Hp;
 			health.Max = monsterData.Hp;
 
-			monster.GetComponent<ActorUI>()?.Construct(health, _persistentProgressService);
+		//	monster.GetComponent<ActorUI>()?.Construct(health, _persistentProgressService);
 			monster.GetComponent<NavMeshAgent>().speed = monsterData.MoveSpeed;
 
 			EnemyAttack enemyAttack = monster.GetComponentInChildren<EnemyAttack>();

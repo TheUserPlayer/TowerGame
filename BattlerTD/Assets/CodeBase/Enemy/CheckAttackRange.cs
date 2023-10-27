@@ -28,7 +28,7 @@ namespace CodeBase.Enemy
 
     private void TriggerStay(Collider obj)
     {
-      
+      _enemyAttack.EnableAttack();
     }
 
     private void TriggerExit(Collider obj)

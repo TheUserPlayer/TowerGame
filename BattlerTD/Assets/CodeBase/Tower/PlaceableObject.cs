@@ -57,13 +57,11 @@ namespace CodeBase.Tower
 
 		private void TriggerExit(Collider obj)
 		{
-			Debug.Log($"exit + {obj.name}");
 			_inAnotherTower = false;
 		}
 
 		private void TriggerStay(Collider obj)
 		{
-			Debug.Log($"Stay + {obj.name}");
 			_inAnotherTower = true;
 		}
 

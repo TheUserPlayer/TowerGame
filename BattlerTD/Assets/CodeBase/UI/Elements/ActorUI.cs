@@ -7,26 +7,31 @@ namespace CodeBase.UI.Elements
 {
 	public class ActorUI : MonoBehaviour
 	{
-		public HpBar HpBar;
-		public ExperienceBar ExperienceBar;
+		public HpBar HeroHpBar;
+		public HpBar KingHpBar;
+
 
 		private IPersistentProgressService _progressService;
-		private IHealth _health;
+		private IHealth _heroHealth;
+		private IHealth _kingHealth;
 		private LootData _lootData;
 
-		public void Construct(IHealth health, IPersistentProgressService progressService)
+		public void Construct(IHealth heroHealth, IHealth kingHealth, IPersistentProgressService progressService)
 		{
-			_health = health;
+			_heroHealth = heroHealth;
+			_kingHealth = kingHealth;
 			_progressService = progressService;
 			_lootData = _progressService.Progress.WorldData.LootData;
-			_health.HealthChanged += UpdateHpBar;
-			_lootData.Changed += UpdateExperienceBar;
+			_heroHealth.HealthChanged += UpdateHeroHpBar;
+			_kingHealth.HealthChanged += UpdateKingHpBar;
+			Debug.Log("aloo");
 		}
 
-		private void Construct(IHealth health)
+		private void Construct(IHealth heroHealth)
 		{
-			_health = health;
-			_health.HealthChanged += UpdateHpBar;
+			_heroHealth = heroHealth;
+			_heroHealth.HealthChanged += UpdateHeroHpBar;
+			_kingHealth.HealthChanged += UpdateKingHpBar;
 		}
 
 		private void Start()
@@ -35,26 +40,29 @@ namespace CodeBase.UI.Elements
 
 			if (health != null)
 				Construct(health);
-			
-			Debug.Log(health);
 		}
 
 		private void OnDestroy()
 		{
-			if (_health != null)
-				_health.HealthChanged -= UpdateHpBar;
+			if (_heroHealth != null)
+				_heroHealth.HealthChanged -= UpdateHeroHpBar;
+
+			if (_kingHealth!= null)
+				_kingHealth.HealthChanged -= UpdateKingHpBar;
 		}
 
-		private void UpdateHpBar()
+		private void UpdateHeroHpBar()
 		{
-			if (HpBar != null)
-				HpBar.SetValue(_health.Current, _health.Max);
-		}
-
-		private void UpdateExperienceBar()
+			Debug.Log("shotaaaaaaaaam");
+			if (HeroHpBar != null)
+				HeroHpBar.SetValue(_heroHealth.Current, _heroHealth.Max);
+		}	
+		
+		private void UpdateKingHpBar()
 		{
-			if (ExperienceBar != null)
-				ExperienceBar.SetValue(_lootData.Collected, _lootData.RequiredPointForNextLevel);
+			Debug.Log("shotam");
+			if (KingHpBar != null)
+				KingHpBar.SetValue(_kingHealth.Current, _kingHealth.Max);
 		}
 	}
 }

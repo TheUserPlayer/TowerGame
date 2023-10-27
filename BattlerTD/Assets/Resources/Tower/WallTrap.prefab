@@ -1259,6 +1259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0091d80450a841379d5742b7a50da904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _wallTrapTransform: {fileID: 4420419706128795950}
 --- !u!54 &6553593252521278628
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1302,9 +1303,10 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 32768
-  _visual: {fileID: 37520547421524761}
+  _visual: {fileID: 8424405518260997653}
   _offset: 0.1
   _sideMultiplier: 5
+  _placeableObject: {fileID: 5973757474480104051}
 --- !u!1 &4786987170012312407
 GameObject:
   m_ObjectHideFlags: 0

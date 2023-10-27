@@ -1,4 +1,5 @@
 ﻿using System;
+using CodeBase.UI.Elements;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows;
 
@@ -9,5 +10,7 @@ namespace CodeBase.StaticData.Windows
   {
     public WindowId WindowId;
     public WindowBase Template;
+    public ScorePanel ScorePrefab;
+    public DeathPanel DeathPrefab;
   }
 }
