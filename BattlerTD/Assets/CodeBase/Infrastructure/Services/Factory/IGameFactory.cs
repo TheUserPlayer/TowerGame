@@ -19,7 +19,7 @@ namespace CodeBase.Infrastructure.Services.Factory
 		GameObject CreateMonster(MonsterTypeId typeId, Transform parent, float progressMultiplier = 1);
 		GameObject CreateBoss(MonsterTypeId typeId, Transform parent, float progressMultiplier = 1);
 		LootPiece CreateLoot();
-		void CreateSpawner(string spawnerId, Vector3 at, Quaternion rotation, MonsterTypeId monsterTypeId);
+		void CreateSpawner(string spawnerId, Vector3 at, Quaternion rotation, MonsterTypeId meleeMonsterTypeId, MonsterTypeId rangeMonsterTypeId);
 		void Cleanup();
 
 		GameObject MainPumpkinGameObject { get; }

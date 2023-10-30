@@ -7,14 +7,16 @@ namespace CodeBase.StaticData
   public class EnemySpawnerStaticData
   {
     public string Id;
-    public MonsterTypeId MonsterTypeId;
+    public MonsterTypeId MeleeMonsterTypeId;
+    public MonsterTypeId RangeMonsterTypeId;
     public Vector3 Position;
     public Quaternion Rotation;
 
-    public EnemySpawnerStaticData(string id, MonsterTypeId monsterTypeId, Vector3 position, Quaternion rotation)
+    public EnemySpawnerStaticData(string id, MonsterTypeId meleeMonsterTypeId,MonsterTypeId rangeMonsterTypeId, Vector3 position, Quaternion rotation)
     {
       Id = id;
-      MonsterTypeId = monsterTypeId;
+      MeleeMonsterTypeId = meleeMonsterTypeId;
+      RangeMonsterTypeId = rangeMonsterTypeId;
       Position = position;
       Rotation = rotation;
     }

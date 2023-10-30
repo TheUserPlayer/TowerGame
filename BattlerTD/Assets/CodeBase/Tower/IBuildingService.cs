@@ -13,5 +13,6 @@ namespace CodeBase.Tower
 		bool CanBePlaced(PlaceableObject placeableObject, bool inAnotherCollider = false);
 		void Init();
 		void InitTowerType(TowerType towerType);
+		bool CanBeMoved(PlaceableObject placeableObject);
 	}
 }

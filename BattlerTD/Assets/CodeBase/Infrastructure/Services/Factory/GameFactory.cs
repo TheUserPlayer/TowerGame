@@ -132,11 +132,11 @@ namespace CodeBase.Infrastructure.Services.Factory
 			//monster.GetComponent<ActorUI>()?.Construct(health, _persistentProgressService);
 			monster.GetComponent<NavMeshAgent>().speed = monsterData.MoveSpeed;
 
-			EnemyAttack enemyAttack = monster.GetComponentInChildren<EnemyAttack>();
-			enemyAttack.Construct(_heroGameObject.transform);
-			enemyAttack.Damage = monsterData.Damage * progressMultiplier;
-			enemyAttack.Cleavage = monsterData.Cleavage;
-			enemyAttack.EffectiveDistance = monsterData.EffectiveDistance;
+			EnemyMeleeAttack enemyMeleeAttack = monster.GetComponentInChildren<EnemyMeleeAttack>();
+			enemyMeleeAttack.Construct(_heroGameObject.transform);
+			enemyMeleeAttack.Damage = monsterData.Damage * progressMultiplier;
+			enemyMeleeAttack.Cleavage = monsterData.Cleavage;
+			enemyMeleeAttack.EffectiveDistance = monsterData.EffectiveDistance;
 
 			monster.GetComponent<AgentMoveToPlayer>()?.Construct(_heroGameObject.transform);
 			monster.GetComponent<RotateToHero>()?.Construct(_heroGameObject.transform);
@@ -169,11 +169,19 @@ namespace CodeBase.Infrastructure.Services.Factory
 		//	monster.GetComponent<ActorUI>()?.Construct(health, _persistentProgressService);
 			monster.GetComponent<NavMeshAgent>().speed = monsterData.MoveSpeed;
 
-			EnemyAttack enemyAttack = monster.GetComponentInChildren<EnemyAttack>();
-			enemyAttack.Construct(_mainPumpkin.transform);
-			enemyAttack.Damage = monsterData.Damage * progressMultiplier;
-			enemyAttack.Cleavage = monsterData.Cleavage;
-			enemyAttack.EffectiveDistance = monsterData.EffectiveDistance;
+			monster.TryGetComponent(out EnemyMeleeAttack enemyMeleeAttack);
+			if (enemyMeleeAttack)
+			{
+				enemyMeleeAttack.Construct(_mainPumpkin.transform);
+				enemyMeleeAttack.Damage = monsterData.Damage * progressMultiplier;
+				enemyMeleeAttack.Cleavage = monsterData.Cleavage;
+				enemyMeleeAttack.EffectiveDistance = monsterData.EffectiveDistance;
+			}
+
+			monster.TryGetComponent(out EnemyRangeAttack enemyRangeAttack);
+
+			if (enemyRangeAttack)
+				enemyRangeAttack.Construct(_mainPumpkin.transform);
 
 			monster.GetComponent<Aggro>()?.Construct(_heroGameObject.transform);
 			monster.GetComponent<AgentMoveToPlayer>()?.Construct(_mainPumpkin.transform);
@@ -188,12 +196,13 @@ namespace CodeBase.Infrastructure.Services.Factory
 			return monster;
 		}
 
-		public void CreateSpawner(string spawnerId, Vector3 at, Quaternion rotation, MonsterTypeId monsterTypeId)
+		public void CreateSpawner(string spawnerId, Vector3 at, Quaternion rotation, MonsterTypeId meleeMonsterTypeId, MonsterTypeId rangeMonsterTypeId)
 		{
 			SpawnPoint spawner = InstantiateRegistered(AssetPath.Spawner, at).GetComponent<SpawnPoint>();
 			spawner.transform.rotation = rotation;
 			spawner.Construct(this);
-			spawner.MonsterTypeId = monsterTypeId;
+			spawner.MeleeMonsterTypeId = meleeMonsterTypeId;
+			spawner.RangeMonsterTypeId = rangeMonsterTypeId;
 			spawner.Id = spawnerId;
 			Spawners.Add(spawner);
 		}

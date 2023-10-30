@@ -92,7 +92,7 @@ namespace CodeBase.Tower
 			}
 			else
 			{
-				Object.Destroy(_objectToPlace.gameObject);
+				Object.Destroy(_objectToPlace.gameObject, 0.2f);
 			}
 		}
 
@@ -149,13 +149,34 @@ namespace CodeBase.Tower
 			return _ableToPlace;
 		}
 
+		public bool CanBeMoved(PlaceableObject placeableObject)
+		{
+			bool canMove = true;
+			BoundsInt area = new BoundsInt();
+
+			area.position = GridLayout.WorldToCell(_objectToPlace.GetStartPosition());
+			area.size = placeableObject.Size * 2;
+
+			TileBase[] baseArray = GetTilesBlock(area, _tilemap);
+			
+			foreach (TileBase tile in baseArray)
+			{
+				if (tile == placeableObject.TileBaseNotMoveZone)
+				{
+					canMove = false;
+					return canMove;
+				}
+			}
+			
+			return canMove;
+		}
+
 		public void InitTowerType(TowerType towerType)
 		{
 			if (!_isActive)
 				return;
-
-			Debug.Log(towerType);
-			if ( towerType!= TowerType.None)
+			
+			if (towerType != TowerType.None)
 				InitializeWithObject(towerType);
 		}
 

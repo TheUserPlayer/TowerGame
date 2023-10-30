@@ -104,7 +104,7 @@ namespace CodeBase.Infrastructure.States
 		private void InitSpawners(LevelStaticData levelData)
 		{
 			foreach (EnemySpawnerStaticData spawnerData in levelData.EnemySpawners)
-				_gameFactory.CreateSpawner(spawnerData.Id, spawnerData.Position, spawnerData.Rotation, spawnerData.MonsterTypeId);
+				_gameFactory.CreateSpawner(spawnerData.Id, spawnerData.Position, spawnerData.Rotation, spawnerData.MeleeMonsterTypeId, spawnerData.RangeMonsterTypeId);
 		}
 
 		private LevelStaticData LevelStaticData()

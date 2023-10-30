@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2091a37287c149d3943837ecd5fd3e5e, type: 3}
   m_Name: Beholder
   m_EditorClassIdentifier: 
-  MonsterTypeId: 2
+  MonsterTypeId: 7
   Hp: 150
   Damage: 100
   MaxLootValue: 10
@@ -20,4 +20,4 @@ MonoBehaviour:
   EffectiveDistance: 0.5
   Cleavage: 0.5
   MoveSpeed: 3
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 4107925125973944480, guid: fc1435d210c9ca34293754b3ecfce167, type: 3}

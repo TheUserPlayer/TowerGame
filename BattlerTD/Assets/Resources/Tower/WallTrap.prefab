@@ -1171,7 +1171,7 @@ GameObject:
   - component: {fileID: 5973757474480104051}
   - component: {fileID: 4534942235145930519}
   - component: {fileID: 6553593252521278628}
-  - component: {fileID: 4420419706128795950}
+  - component: {fileID: 13375507219618462}
   m_Layer: 11
   m_Name: WallTrap
   m_TagString: Untagged
@@ -1231,6 +1231,7 @@ MonoBehaviour:
   _placeableVisual: {fileID: 6494077333324241644}
   _gameVisual: {fileID: 2208983806662121641}
   _tileBase: {fileID: 11400000, guid: 5be034b7ec858b347b8d5bff2dc28a0a, type: 2}
+  _tileBaseNotMoveZone: {fileID: 0}
   _tileBaseAfterPlaced: {fileID: 11400000, guid: ba568352b771b0f4698921ad2972f1c7,
     type: 2}
   _collider: {fileID: 7766654551933744463}
@@ -1259,7 +1260,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0091d80450a841379d5742b7a50da904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wallTrapTransform: {fileID: 4420419706128795950}
+  _placeableObject: {fileID: 5973757474480104051}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 524288
 --- !u!54 &6553593252521278628
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1287,7 +1291,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4420419706128795950
+--- !u!114 &13375507219618462
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1299,13 +1303,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5da54c6c7bba9d4688e421ebed7447f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rayLength: 0.2
+  _rayLength: 2
   _layerMask:
     serializedVersion: 2
     m_Bits: 32768
-  _visual: {fileID: 8424405518260997653}
+  _visual: {fileID: 37520547421524761}
   _offset: 0.1
-  _sideMultiplier: 5
+  _sideMultiplier: 1
   _placeableObject: {fileID: 5973757474480104051}
 --- !u!1 &4786987170012312407
 GameObject:
@@ -2378,7 +2382,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9170170093090104642}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

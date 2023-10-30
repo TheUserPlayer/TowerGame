@@ -24,7 +24,6 @@ namespace CodeBase.UI.Elements
 			_lootData = _progressService.Progress.WorldData.LootData;
 			_heroHealth.HealthChanged += UpdateHeroHpBar;
 			_kingHealth.HealthChanged += UpdateKingHpBar;
-			Debug.Log("aloo");
 		}
 
 		private void Construct(IHealth heroHealth)
@@ -53,14 +52,12 @@ namespace CodeBase.UI.Elements
 
 		private void UpdateHeroHpBar()
 		{
-			Debug.Log("shotaaaaaaaaam");
 			if (HeroHpBar != null)
 				HeroHpBar.SetValue(_heroHealth.Current, _heroHealth.Max);
 		}	
 		
 		private void UpdateKingHpBar()
 		{
-			Debug.Log("shotam");
 			if (KingHpBar != null)
 				KingHpBar.SetValue(_kingHealth.Current, _kingHealth.Max);
 		}

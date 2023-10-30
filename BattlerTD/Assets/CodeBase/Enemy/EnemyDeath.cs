@@ -15,7 +15,7 @@ namespace CodeBase.Enemy
 		[SerializeField] private AgentMoveToPlayer _move;
 		[SerializeField] private RotateToHero _rotateToHero;
 		[SerializeField] private CheckAttackRange _range;
-		[SerializeField] private EnemyAttack _attack;
+		[SerializeField] private Attack _attack;
 		[SerializeField] private EnemyAnimator _animator;
 		[SerializeField] private GameObject _deathFx;
 		

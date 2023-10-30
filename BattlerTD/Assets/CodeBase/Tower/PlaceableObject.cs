@@ -10,6 +10,7 @@ namespace CodeBase.Tower
 		[SerializeField] private GameObject _placeableVisual;
 		[SerializeField] private GameObject _gameVisual;
 		[SerializeField] private TileBase _tileBase;
+		[SerializeField] private TileBase _tileBaseNotMoveZone;
 		[SerializeField] private TileBase _tileBaseAfterPlaced;
 		[SerializeField] protected BoxCollider _collider;
 		[SerializeField] protected TriggerObserver _triggerObserver;
@@ -38,6 +39,13 @@ namespace CodeBase.Tower
 			get
 			{
 				return _inAnotherTower;
+			}
+		}
+		public TileBase TileBaseNotMoveZone
+		{
+			get
+			{
+				return _tileBaseNotMoveZone;
 			}
 		}
 

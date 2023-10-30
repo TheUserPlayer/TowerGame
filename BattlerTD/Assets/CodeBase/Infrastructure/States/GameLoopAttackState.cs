@@ -21,7 +21,7 @@ namespace CodeBase.Infrastructure.States
 		private readonly IGameFactory _gameFactory;
 		private readonly SceneLoader _sceneLoader;
 		private IHealth _heroHealth;
-		private float _monstersForWave = 4;
+		private float _monstersForWave = 1;
 		private List<GameObject> _monstersInGame = new List<GameObject>();
 
 		public GameLoopAttackState(GameStateMachine stateMachine, IWindowService windowService, IPersistentProgressService progressService, LoadingCurtain loadingCurtain,
@@ -40,7 +40,7 @@ namespace CodeBase.Infrastructure.States
 			DescribeHeroDeath();
 			StopWave();
 			_gameFactory.HUD.DisappearAttackButton();
-			_monstersForWave += 4;
+			_monstersForWave += 2;
 			_gameFactory.Monsters.Clear();
 			_progressService.Progress.KillData.ResetKillData();
 			_progressService.Progress.KillData.NextWave();
@@ -97,7 +97,7 @@ namespace CodeBase.Infrastructure.States
 			float result = _monstersForWave / _gameFactory.Spawners.Count;
 
 			foreach (SpawnPoint spawner in _gameFactory.Spawners)
-				spawner.StartSpawn(result);
+				spawner.StartSpawnMeleeMob(result);
 		}
 
 		private void StopWave()

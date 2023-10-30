@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 4675505029310251659}
   - component: {fileID: 1013242954790080262}
   - component: {fileID: 8014947596135638621}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: OrbLightningTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,6 +208,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0091d80450a841379d5742b7a50da904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _placeableObject: {fileID: 4675505029310251659}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &4675505029310251659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,6 +227,7 @@ MonoBehaviour:
   _placeableVisual: {fileID: 8723021069432829543}
   _gameVisual: {fileID: 1332756914492049800}
   _tileBase: {fileID: 11400000, guid: 6738094d0799a8448b00748e3e862193, type: 2}
+  _tileBaseNotMoveZone: {fileID: 0}
   _tileBaseAfterPlaced: {fileID: 11400000, guid: ba568352b771b0f4698921ad2972f1c7,
     type: 2}
   _collider: {fileID: 2925244192220867903}
