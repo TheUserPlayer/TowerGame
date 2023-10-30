@@ -47,10 +47,12 @@ namespace CodeBase.Infrastructure.States
     {
       PlayerProgress progress =  new PlayerProgress(InitialLevel);
 
-      progress.HeroState.MaxHP = 35000;
+      progress.HeroState.MaxHP = 350;
+      progress.KingState.MaxHP = 3500;
       progress.HeroStats.Damage = 1;
       progress.HeroStats.DamageRadius = 1.5f;
       progress.HeroState.ResetHp();
+      progress.KingState.ResetHp();
       return progress;
     }
   }

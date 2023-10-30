@@ -23,7 +23,7 @@ namespace CodeBase.Infrastructure.States
 		public GameStateMachine(SceneLoader sceneLoader, LoadingCurtain loadingCurtain, AllServices services)
 		{
 			_services = services;
-			
+
 			_states = new Dictionary<Type, IExitableState> {
 				[typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, services),
 				[typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingCurtain, services.Single<IGameFactory>(),
@@ -34,7 +34,7 @@ namespace CodeBase.Infrastructure.States
 				[typeof(GameLoopAttackState)] = new GameLoopAttackState(this, services.Single<IWindowService>(), services.Single<IPersistentProgressService>(), loadingCurtain,
 					services.Single<ITimerService>(), services.Single<IGameFactory>()),
 				[typeof(RestartLevelState)] = new RestartLevelState(services.Single<IGameFactory>(), services.Single<ITimerService>(), loadingCurtain, this, sceneLoader),
-				[typeof(GameLoopBuildingState)] = new GameLoopBuildingState(services.Single<IGameFactory>()),
+				[typeof(GameLoopBuildingState)] = new GameLoopBuildingState(services.Single<IGameFactory>(), services.Single<IPersistentProgressService>(), services.Single<IUIFactory>()),
 			};
 		}
 
@@ -43,7 +43,7 @@ namespace CodeBase.Infrastructure.States
 			IState state = ChangeState<TState>();
 			state.Enter();
 		}
-		
+
 		public void Update()
 		{
 			_activeState?.Update();

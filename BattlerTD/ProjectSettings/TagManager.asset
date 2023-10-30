@@ -27,8 +27,8 @@ TagManager:
   - Wall
   - PlaceableTrigger
   - Traps
-  - 
-  - 
+  - FloorTraps
+  - WallBody
   - 
   - 
   - 

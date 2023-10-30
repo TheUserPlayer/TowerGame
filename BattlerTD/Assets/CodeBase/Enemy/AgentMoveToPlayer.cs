@@ -9,7 +9,7 @@ namespace CodeBase.Enemy
 	public class AgentMoveToPlayer : Follow
 	{
 		public NavMeshAgent Agent;
-		public EnemyAttack _enemyAttack;
+		public Attack _enemyMeleeAttack;
 
 		private const float MinimalDistance = 1.1f;
 
@@ -17,8 +17,9 @@ namespace CodeBase.Enemy
 
 		//private IGameFactory _gameFactory;
 		public Transform _targetTransform;
-		public Transform _cachedPumpkinTransform;
+		public Transform _cachedKingTransform;
 		private float _cachedSpeed;
+		private bool _isSpeedDecreased;
 
 		public Transform TargetTransform
 		{
@@ -29,7 +30,7 @@ namespace CodeBase.Enemy
 			set
 			{
 				_targetTransform = value;
-				_enemyAttack.Construct(_targetTransform);
+				_enemyMeleeAttack.Construct(_targetTransform);
 			}
 		}
 
@@ -39,7 +40,7 @@ namespace CodeBase.Enemy
 		private void Start()
 		{
 			_cachedSpeed = Agent.speed;
-			_cachedPumpkinTransform = _targetTransform;
+			_cachedKingTransform = _targetTransform;
 			CanMove = true;
 		}
 
@@ -47,6 +48,9 @@ namespace CodeBase.Enemy
 		{
 			if (TargetTransform && IsHeroNotReached())
 				Agent.destination = TargetTransform.position;
+
+			if (_isSpeedDecreased)
+				return;
 
 			if (CanMove)
 				StartMoving();
@@ -63,7 +67,25 @@ namespace CodeBase.Enemy
 		public void ChangeToOldTarget()
 		{
 			Agent.stoppingDistance = 2.2f;
-			TargetTransform = _cachedPumpkinTransform;
+			TargetTransform = _cachedKingTransform;
+		}
+
+		public void RestoreSpeed()
+		{
+			if (_isSpeedDecreased)
+			{
+				_isSpeedDecreased = false;
+				Agent.speed = _cachedSpeed;
+			}
+		}
+
+		public void DecreaseSpeed()
+		{
+			if (!_isSpeedDecreased)
+			{
+				_isSpeedDecreased = true;
+				Agent.speed *= 0.5f;
+			}
 		}
 
 		public void StartMoving() =>

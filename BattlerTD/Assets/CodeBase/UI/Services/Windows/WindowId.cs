@@ -5,5 +5,7 @@
     None = 0,
     Shop = 1, 
     TowerPanel = 2,
+    WinPanel = 3, 
+    DeathPanel = 4,
   }
 }

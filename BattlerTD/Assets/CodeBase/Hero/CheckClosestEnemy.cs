@@ -14,7 +14,7 @@ namespace CodeBase.Hero
 
 
 		private void Awake() =>
-			_layerMask = 1 << LayerMask.NameToLayer("Enemy");
+			_layerMask = 1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("MainBuilding");
 
 		private void Update()
 		{

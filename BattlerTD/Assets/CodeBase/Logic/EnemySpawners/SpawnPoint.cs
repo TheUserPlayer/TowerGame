@@ -15,7 +15,8 @@ namespace CodeBase.Logic.EnemySpawners
 	public class SpawnPoint : MonoBehaviour, ISavedProgress
 	{
 		[SerializeField] private float _delayBetweenSpawn = 7;
-		public MonsterTypeId MonsterTypeId;
+		public MonsterTypeId MeleeMonsterTypeId;
+		public MonsterTypeId RangeMonsterTypeId;
 		
 		public string Id { get; set; }
 
@@ -55,11 +56,11 @@ namespace CodeBase.Logic.EnemySpawners
 				_enemyDeath.Happened -= Slay;
 		}
 
-		public void StartSpawn(float times) =>
-			StartCoroutine(SpawnNormalMob(times));		
+		public void StartSpawnMeleeMob(float times) =>
+			StartCoroutine(SpawnMeleeMob(times));		
 		
 		public void StopSpawn(float times) =>
-			StopCoroutine(SpawnNormalMob(times));
+			StopCoroutine(SpawnMeleeMob(times));
 
 		public void LoadProgress(PlayerProgress progress)
 		{
@@ -71,17 +72,28 @@ namespace CodeBase.Logic.EnemySpawners
 
 		}
 
-		private IEnumerator SpawnNormalMob(float times)
+		private IEnumerator SpawnMeleeMob(float times)
 		{
 			for (int i = 0; i < times; i++)
 			{
-				GameObject monster = _factory.CreateMonster(MonsterTypeId, transform);
-				_enemyDeath = monster.GetComponent<EnemyDeath>();
-				_enemyDeath.Happened += Slay;
+				CreateMob(MeleeMonsterTypeId);
+
+				yield return new WaitForSeconds(_delayBetweenSpawn);
+
+				CreateMob(RangeMonsterTypeId);
+				
 				yield return new WaitForSeconds(_delayBetweenSpawn);
 			}
-		}		
-		
+		}
+
+		private GameObject CreateMob(MonsterTypeId monsterTypeId)
+		{
+			GameObject monster = _factory.CreateMonster(monsterTypeId, transform);
+			_enemyDeath = monster.GetComponent<EnemyDeath>();
+			_enemyDeath.Happened += Slay;
+			return monster;
+		}
+
 		private void Slay()
 		{
 			if (_enemyDeath != null)

@@ -606,9 +606,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Agent: {fileID: 5653411175728527918}
-  _enemyAttack: {fileID: 3171871020006391201}
+  _enemyMeleeAttack: {fileID: 3171871020006391201}
   _targetTransform: {fileID: 0}
-  _cachedPumpkinTransform: {fileID: 0}
+  _cachedKingTransform: {fileID: 0}
 --- !u!195 &5653411175728527918
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -723,7 +723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53b3800d0d044caa80b922277a2d1253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAttack: {fileID: 3171871020006391201}
+  _enemyMeleeAttack: {fileID: 3171871020006391201}
   TriggerObserver: {fileID: 4201775958684147572}
 --- !u!114 &2135686755011606047
 MonoBehaviour:

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Inputs;
@@ -7,6 +8,8 @@ namespace CodeBase.Tower
 {
 	public class ObjectDrag : MonoBehaviour
 	{
+		[SerializeField] private PlaceableObject _placeableObject;
+		[SerializeField] private LayerMask _layerMask;
 		private Vector3 _offset;
 		private IBuildingService _buildingService;
 
@@ -19,6 +22,7 @@ namespace CodeBase.Tower
 		{
 			StopCoroutine(OnDraggingObject());
 		}
+
 		public void OnObjectTapped()
 		{
 			_offset = transform.position - _buildingService.GetMouseWorldPosition();
@@ -29,9 +33,36 @@ namespace CodeBase.Tower
 		{
 			while (_buildingService.IsDraggingObject)
 			{
-				Vector3 position = _buildingService.GetMouseWorldPosition() + _offset;
-				transform.position = _buildingService.SnapCoordinateToGrid(position);
+				if (CheckTouchPosition())
+				{
+					Vector3 position = _buildingService.GetMouseWorldPosition() + _offset;
+					transform.position = _buildingService.SnapCoordinateToGrid(position);
+					Debug.Log(position);
+					Debug.Log(_buildingService.IsDraggingObject);
+				}
+				else
+				{
+					Vector3 position = _buildingService.GetMouseWorldPosition() + _offset;
+					Vector3 snappedPosition = new Vector3(transform.position.x, transform.position.y, position.z);
+					transform.position = _buildingService.SnapCoordinateToGrid(snappedPosition);
+					Debug.Log(position);
+					Debug.Log(_buildingService.IsDraggingObject);
+				}
 				yield return null;
+			}
+		}
+
+		private bool CheckTouchPosition()
+		{
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+			if (!Physics.Raycast(ray, 100,_layerMask))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
 			}
 		}
 	}

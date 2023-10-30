@@ -14,5 +14,7 @@ namespace CodeBase.Infrastructure.Services.StaticData
     
     HeroStaticData ForHero();
     WindowConfig ForWindow(WindowId window);
+    WindowConfig ForWinPanel(WindowId windowId);
+    WindowConfig ForDeathPanel(WindowId windowId);
   }
 }

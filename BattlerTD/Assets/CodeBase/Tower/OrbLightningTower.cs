@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -5,8 +6,6 @@ namespace CodeBase.Tower
 {
 	public class OrbLightningTower : PlaceableObject
 	{
-		private const string BaseColor = "Color";
-		
 		[SerializeField] private MeshRenderer _tower;
 		[SerializeField] private ParticleSystem[] _particleSystems;
 

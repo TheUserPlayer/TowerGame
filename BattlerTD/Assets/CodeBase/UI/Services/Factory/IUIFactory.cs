@@ -9,5 +9,7 @@ namespace CodeBase.UI.Services.Factory
     void CreateUIRoot();
     void CreateShop();
     Transform UiRoot { get; }
+    void CreateWinPanel();
+    void CreateDeathPanel();
   }
 }

@@ -20,8 +20,6 @@ namespace CodeBase.Tower
 			_buildingService = AllServices.Container.Single<IBuildingService>();
 			_inputService = AllServices.Container.Single<IInputService>();
 			_inputService.TowerButtonPressed += InitTower;
-			Debug.Log(_buildingService);
-			Debug.Log(_button);
 		}
 
 		private void OnDestroy()
@@ -32,9 +30,7 @@ namespace CodeBase.Tower
 		private void InitTower()
 		{
 			if (_button.button.value)
-			{
 				_buildingService.InitTowerType(_towerType);
-			}
 		}
 	}
 }

@@ -9,9 +9,7 @@ namespace CodeBase.Infrastructure.Services.Inputs
 		protected const string Vertical = "Vertical";
 		private const string Button = "Fire";
 		private const string Button2 = "Fire2";
-		private const string Button3 = "Fire3";
-		private const string Button4 = "Fire4";
-		private const string Button5 = "Fire5";
+		
 		private bool _isDragging;
 		private int _towerButtonCounter;
 		private Vector2 _startTouch, swipeDelta;

@@ -24,7 +24,7 @@ namespace CodeBase.Editor
       if (GUILayout.Button("Collect"))
       {
         levelData.EnemySpawners = FindObjectsOfType<SpawnMarker>()
-          .Select(x => new EnemySpawnerStaticData(x.GetComponent<UniqueId>().Id, x.MonsterTypeId, x.transform.position, x.transform.rotation))
+          .Select(x => new EnemySpawnerStaticData(x.GetComponent<UniqueId>().Id, x.MeleeMonsterTypeId,x.RangeMonsterTypeId ,x.transform.position, x.transform.rotation))
           .ToList();
 
         levelData.LevelKey = SceneManager.GetActiveScene().name;
