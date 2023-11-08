@@ -9,7 +9,7 @@ namespace CodeBase.Hero
 {
 	public class KingHealth : MonoBehaviour, IHealth, ISavedProgressReader
 	{
-		public MainBuildingAnimator Animator;
+		public KingAnimator Animator;
 		private State _state;
 
 		public event Action HealthChanged;

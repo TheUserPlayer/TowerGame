@@ -7,7 +7,7 @@ namespace CodeBase.Infrastructure.Services.Inputs
   {
     event Action TowerButtonPressed;
     event Action TowerButtonUnpressed;
-    Vector2 Axis { get; }
+    Vector2 MovingAxis { get; }
     Touch Touch { get; set; }
     bool Tap { get; set; }
     bool IsDragging { get; }
@@ -15,7 +15,11 @@ namespace CodeBase.Infrastructure.Services.Inputs
     bool SwipeRight { get; set; }
     bool SwipeUp { get; set; } 
     bool SwipeDown { get; set; }
+    Vector2 RotatingAxis { get; }
     void Update();
     bool IsAttackButtonUp();
+    bool IsAttackButton();
+    event Action AttackButtonUnpressed;
+    bool IsAttackButtonDown();
   }
 }

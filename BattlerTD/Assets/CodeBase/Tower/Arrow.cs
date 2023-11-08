@@ -26,7 +26,7 @@ namespace CodeBase.Tower
 		{
 			Debug.Log(other.name);
 			other.transform.GetComponentInParent<IHealth>().TakeDamage(_damage);
-			//Instantiate(_explosionVFX, other.transform.position, Quaternion.identity);
+			Instantiate(_explosionVFX, other.transform.position, Quaternion.identity);
 			Destroy(gameObject);
 		}
 	}

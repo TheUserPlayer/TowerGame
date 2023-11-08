@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CodeBase.Hero
 {
-	public class MainBuildingAnimator : MonoBehaviour, IAnimationStateReader
+	public class KingAnimator : MonoBehaviour, IAnimationStateReader
 	{
 		private static readonly int HitHash = Animator.StringToHash("Hit");
     

@@ -1,64 +1,48 @@
-using CodeBase.Data;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Inputs;
-using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.Logic;
 using UnityEngine;
-using PhysicsDebug = CodeBase.Logic.PhysicsDebug;
 
 namespace CodeBase.Hero
 {
-  [RequireComponent(typeof(HeroAnimator), typeof(CharacterController))]
-  public class HeroAttack : MonoBehaviour, ISavedProgressReader
-  {
-    private const string Hittable = "Hittable";
-    public HeroAnimator Animator;
+	public abstract class HeroAttack : MonoBehaviour
+	{
+		private const string Hittable = "Hittable";
+		
+		[SerializeField] protected GameObject _sword;
+		[SerializeField] protected GameObject _bow;
+		[SerializeField] protected HeroAnimator _animator;
+		[SerializeField] protected float _meleeAttackTimer;
 
-    private IInputService _inputService;
+		protected IInputService _inputService;
 
-    private static int _layerMask;
-    private GameObject _impactVfx;
-    private Collider[] _hits = new Collider[3];
-    private Stats _stats;
-    
-    [SerializeField] private float _damage;
-    [SerializeField] private ParticleSystem _impactFxPrefab;
+		protected float _attackButtonPressedTimer;
+		protected static int _layerMask;
 
-    private void Awake()
-    {
-      _inputService = AllServices.Container.Single<IInputService>();
+		private void Awake()
+		{
+			_inputService = AllServices.Container.Single<IInputService>();
+			_inputService.AttackButtonUnpressed += AttackButtonUnpressed;
 
-      _layerMask = 1 << LayerMask.NameToLayer(Hittable);
-    }
+			_layerMask = 1 << LayerMask.NameToLayer(Hittable);
+		}
 
-    private void Update()
-    {
-      if(_inputService.IsAttackButtonUp() && !Animator.IsAttacking)
-        Animator.PlayAttack();
-    }
+		private void Update()
+		{
+			if (!_inputService.IsAttackButton())
+				return;
 
-    public void LoadProgress(PlayerProgress progress)
-    {
-      _stats = progress.HeroStats;
-    }
+			if(_inputService.Tap)
+				Debug.Log("da");
+			OnUpdate();
+			UpdateTimer();
+		}
 
-    private void OnAttack()
-    {
-      PhysicsDebug.DrawDebug(transform.position + transform.forward, _stats.DamageRadius, 1.0f);
-      for (int i = 0; i < Hit(); ++i)
-      {
-        _hits[i].transform.GetComponentInParent<IHealth>().TakeDamage(_damage);
-        PlayTakeDamageFx(_hits[i].transform.position);
-      }
-    }
+		protected virtual void OnUpdate() { }
 
-    private int Hit() => 
-      Physics.OverlapSphereNonAlloc(transform.position + transform.forward, _stats.DamageRadius, _hits, _layerMask);
+		private void UpdateTimer() =>
+			_attackButtonPressedTimer += Time.deltaTime;
 
-    private void PlayTakeDamageFx(Vector3 position)
-    {
-      _impactFxPrefab.transform.position = position;
-      _impactFxPrefab.Play();
-    }
-  }
+		protected virtual void AttackButtonUnpressed() =>
+			_attackButtonPressedTimer = 0;
+	}
 }

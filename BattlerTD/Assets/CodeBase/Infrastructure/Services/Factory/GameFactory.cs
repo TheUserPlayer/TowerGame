@@ -97,6 +97,7 @@ namespace CodeBase.Infrastructure.Services.Factory
 		public Hud CreateHud()
 		{
 			_hud = InstantiateRegistered(AssetPath.HudPath).GetComponent<Hud>();
+			_hud.GetComponentInChildren<UIAttackButton>().Construct(_heroGameObject.GetComponent<HeroRangeAttack>());
 			_hud.GetComponentInChildren<LootCounter>()
 				.Construct(_persistentProgressService.Progress.WorldData);	
 			_hud.GetComponentInChildren<WaveCounter>()
@@ -277,4 +278,5 @@ namespace CodeBase.Infrastructure.Services.Factory
 		}
 
 	}
+
 }

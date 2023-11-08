@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 283.75464, y: -72.0544}
+  m_AnchoredPosition: {x: 304, y: -89}
   m_SizeDelta: {x: 567.5093, y: 144.1088}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2112908671417207280
@@ -486,7 +486,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 613, y: -196}
+  m_AnchoredPosition: {x: 613, y: 0}
   m_SizeDelta: {x: 577.97, y: 146.03503}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2159208789500871108
@@ -1080,7 +1080,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 179, y: -194}
+  m_AnchoredPosition: {x: 179, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4828279906710891273
@@ -1811,10 +1811,10 @@ RectTransform:
   m_Father: {fileID: 1172482520243125857}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -215.02, y: -191}
-  m_SizeDelta: {x: 430.04, y: 387.14624}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 560.88, y: 0}
+  m_SizeDelta: {x: -1121.8, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4755572370873062273
 GameObject:
@@ -2909,7 +2909,7 @@ RectTransform:
   m_GameObject: {fileID: 6773484869454588195}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.77019, y: 0.77019, z: 0.77019}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2712925635531357264}
@@ -3147,7 +3147,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -75.17499}
+  m_AnchoredPosition: {x: 0, y: -102.9}
   m_SizeDelta: {x: 323.5306, y: 150.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4527841477363181661
@@ -3234,7 +3234,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 200, y: 200}
+  m_AnchoredPosition: {x: 200, y: 0}
   m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8494568201611252379
@@ -3940,6 +3940,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114282555968907678, guid: e0815e227ed46e445b99930271e8942c,
         type: 3}
+      propertyPath: canFollowPointer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114282555968907678, guid: e0815e227ed46e445b99930271e8942c,
+        type: 3}
       propertyPath: isDynamicJoystick
       value: 1
       objectReference: {fileID: 0}
@@ -4549,32 +4554,32 @@ PrefabInstance:
     - target: {fileID: 6902063099227157212, guid: 01cd716c49f811440ab4a5e2fc332ecc,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.95085424
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6902063099227157212, guid: 01cd716c49f811440ab4a5e2fc332ecc,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.96300006
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6902063099227157212, guid: 01cd716c49f811440ab4a5e2fc332ecc,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.69572926
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6902063099227157212, guid: 01cd716c49f811440ab4a5e2fc332ecc,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.8938048
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6902063099227157212, guid: 01cd716c49f811440ab4a5e2fc332ecc,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: -0.54400635
+      value: 489.456
       objectReference: {fileID: 0}
     - target: {fileID: 6902063099227157212, guid: 01cd716c49f811440ab4a5e2fc332ecc,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 2.7549973
+      value: 198.755
       objectReference: {fileID: 0}
     - target: {fileID: 6902063099227157212, guid: 01cd716c49f811440ab4a5e2fc332ecc,
         type: 3}
@@ -4614,12 +4619,12 @@ PrefabInstance:
     - target: {fileID: 6902063099227157212, guid: 01cd716c49f811440ab4a5e2fc332ecc,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.27197266
+      value: -285
       objectReference: {fileID: 0}
     - target: {fileID: 6902063099227157212, guid: 01cd716c49f811440ab4a5e2fc332ecc,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1.3781738
+      value: -138
       objectReference: {fileID: 0}
     - target: {fileID: 6902063099227157212, guid: 01cd716c49f811440ab4a5e2fc332ecc,
         type: 3}
@@ -4640,6 +4645,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ChildAlignment
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9108238707563504737, guid: 01cd716c49f811440ab4a5e2fc332ecc,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5560992884866247636, guid: 01cd716c49f811440ab4a5e2fc332ecc, type: 3}
@@ -4896,15 +4906,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22409286, guid: 874b815eb1b4b064c9fc155a1e100f56, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.99999994
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22409286, guid: 874b815eb1b4b064c9fc155a1e100f56, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.99999994
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22409286, guid: 874b815eb1b4b064c9fc155a1e100f56, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.99999994
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22409286, guid: 874b815eb1b4b064c9fc155a1e100f56, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4974,6 +4984,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7341368486635021864}
+    - targetCorrespondingSourceObject: {fileID: 189116, guid: 874b815eb1b4b064c9fc155a1e100f56,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9011190361108462457}
+    - targetCorrespondingSourceObject: {fileID: 189116, guid: 874b815eb1b4b064c9fc155a1e100f56,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6007709088183613319}
   m_SourcePrefab: {fileID: 100100000, guid: 874b815eb1b4b064c9fc155a1e100f56, type: 3}
 --- !u!1 &8619930963312752216 stripped
 GameObject:
@@ -5025,6 +5043,48 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &9011190361108462457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8619930963312752216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7800045d086a487e9de19d185f9e1ed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shootJoystick: {fileID: 6007709088183613319}
+  _sword: {fileID: 21300000, guid: 789e518168d493d4396ec984b1b5bcb3, type: 3}
+  _bow: {fileID: 21300000, guid: bd414a9002c9cc743a6b1481e409997d, type: 3}
+  _attackButton: {fileID: 4312994919791057477}
+--- !u!114 &6007709088183613319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8619930963312752216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d42b387efc83be49900b546e4052e28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xAxis:
+    m_key: Horizontal2
+    value: 0
+  yAxis:
+    m_key: Vertical2
+    value: 0
+  movementAxes: 0
+  valueMultiplier: 1
+  thumb: {fileID: 4312994919791057477}
+  movementAreaRadius: 75
+  deadzoneRadius: 0
+  isDynamicJoystick: 0
+  dynamicJoystickMovementArea: {fileID: 3971379533810045154}
+  canFollowPointer: 0
 --- !u!224 &8619930963334571170 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 22409286, guid: 874b815eb1b4b064c9fc155a1e100f56,
