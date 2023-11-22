@@ -12,7 +12,7 @@ namespace CodeBase.Tower
 		Vector3 SnapCoordinateToGrid(Vector3 position);
 		bool CanBePlaced(PlaceableObject placeableObject, bool inAnotherCollider = false);
 		void Init();
-		void InitTowerType(TowerType towerType);
+		void InitTowerType(TowerType towerType, int towerCost);
 		bool CanBeMoved(PlaceableObject placeableObject);
 	}
 }

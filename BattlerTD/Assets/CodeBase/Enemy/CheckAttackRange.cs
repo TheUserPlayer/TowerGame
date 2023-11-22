@@ -7,38 +7,32 @@ namespace CodeBase.Enemy
   [RequireComponent(typeof(Attack))]
   public class CheckAttackRange : MonoBehaviour
   {
-    public Attack _enemyMeleeAttack;
+    public Attack _enemyAttack;
     public TriggerObserver TriggerObserver;
 
     private void Start()
     {
       TriggerObserver.TriggerEnter += TriggerEnter;
-      TriggerObserver.TriggerStay += TriggerStay;
       TriggerObserver.TriggerExit += TriggerExit;
       
-      _enemyMeleeAttack.DisableAttack();
+      _enemyAttack.DisableAttack();
     }
 
     private void OnDestroy()
     {
       TriggerObserver.TriggerEnter -= TriggerEnter;
-      TriggerObserver.TriggerStay -= TriggerStay;
       TriggerObserver.TriggerExit -= TriggerExit;
     }
-
-    private void TriggerStay(Collider obj)
-    {
-      _enemyMeleeAttack.EnableAttack();
-    }
-
+    
     private void TriggerExit(Collider obj)
     {
-      _enemyMeleeAttack.DisableAttack();
+      _enemyAttack.DisableAttack();
+      Debug.Log(obj.gameObject.name);
     }
 
     private void TriggerEnter(Collider obj)
     {
-      _enemyMeleeAttack.EnableAttack();
+      _enemyAttack.EnableAttack();
     }
   }
 }

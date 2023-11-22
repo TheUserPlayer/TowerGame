@@ -13,7 +13,9 @@ using CodeBase.Logic;
 using CodeBase.Logic.EnemySpawners;
 using CodeBase.StaticData;
 using CodeBase.Tower;
+using CodeBase.UI;
 using CodeBase.UI.Elements;
+using CodeBase.UI.Menu;
 using CodeBase.UI.Services.Windows;
 using UnityEngine;
 using UnityEngine.AI;
@@ -33,15 +35,16 @@ namespace CodeBase.Infrastructure.Services.Factory
 		private readonly IWindowService _windowService;
 		private readonly IInputService _inputService;
 		private readonly IBuildingService _buildingServie;
+		private readonly ITimerService _timerService;
 		private readonly List<SpawnPoint> _spawners = new List<SpawnPoint>();
 		private GameObject _heroGameObject;
 
 		private List<GameObject> _monsters = new List<GameObject>();
 		private BossSpawnPoint _bossSpawner;
-		private ITimerService _timerService;
 		private GameObject _mainPumpkin;
 		private Hud _hud;
 		private TowerPanel _towerPanel;
+		private HeroesPreviewMainMenu _heroesPreview;
 
 		public GameObject MainPumpkinGameObject => _mainPumpkin;
 		public GameObject HeroGameObject => _heroGameObject;
@@ -73,6 +76,13 @@ namespace CodeBase.Infrastructure.Services.Factory
 				return _towerPanel;
 			}
 		}
+		public HeroesPreviewMainMenu HeroesPreview
+		{
+			get
+			{
+				return _heroesPreview;
+			}
+		}
 
 
 		public GameFactory(IAssetProvider assets, IStaticDataService staticData, IRandomService randomService, IPersistentProgressService persistentProgressService,
@@ -93,6 +103,12 @@ namespace CodeBase.Infrastructure.Services.Factory
 			_heroGameObject.GetComponent<HeroMove>().Construct(_timerService, _inputService);
 			return _heroGameObject;
 		}
+		public HeroesPreviewMainMenu CreateHeroVisual(Vector3 at)
+		{
+			_heroesPreview = InstantiateRegistered(AssetPath.HeroVisualPath, at).GetComponent<HeroesPreviewMainMenu>();
+
+			return _heroesPreview;
+		}
 
 		public Hud CreateHud()
 		{
@@ -102,6 +118,16 @@ namespace CodeBase.Infrastructure.Services.Factory
 				.Construct(_persistentProgressService.Progress.WorldData);	
 			_hud.GetComponentInChildren<WaveCounter>()
 				.Construct(_persistentProgressService.Progress.KillData);
+
+			TowerUI[] towerUis = _hud.GetComponentsInChildren<TowerUI>();
+			foreach (TowerUI towerUi in towerUis)
+			{
+				if (towerUi.TowerType == TowerType.None)
+					break;
+
+				TowerStaticData towerData = _staticData.ForTower(towerUi.TowerType);
+				towerUi.TowerCost = towerData.Cost;
+			}
 
 			_towerPanel = _hud.GetComponentInChildren<TowerPanel>();
 			foreach (OpenWindowButton openWindowButton in HUD.GetComponentsInChildren<OpenWindowButton>())
@@ -127,6 +153,7 @@ namespace CodeBase.Infrastructure.Services.Factory
 			GameObject monster = Object.Instantiate(monsterData.Prefab, spawnPosition, Quaternion.identity);
 
 			IHealth health = monster.GetComponent<IHealth>();
+			health.Construct(_randomService, _persistentProgressService);
 			health.Current = monsterData.Hp;
 			health.Max = monsterData.Hp;
 
@@ -155,6 +182,8 @@ namespace CodeBase.Infrastructure.Services.Factory
 		{
 			TowerStaticData towerData = _staticData.ForTower(towerType);
 			GameObject tower = Object.Instantiate(towerData.Prefab, position, rotation);
+			PlaceableObject placeableObject = tower.GetComponent<PlaceableObject>();
+			placeableObject.TowerCost = towerData.Cost;
 			return tower;
 		}
 
@@ -164,6 +193,7 @@ namespace CodeBase.Infrastructure.Services.Factory
 			GameObject monster = Object.Instantiate(monsterData.Prefab, parent.position, Quaternion.identity);
 
 			IHealth health = monster.GetComponent<IHealth>();
+			health.Construct(_randomService, _persistentProgressService);
 			health.Current = monsterData.Hp;
 			health.Max = monsterData.Hp;
 
@@ -205,6 +235,7 @@ namespace CodeBase.Infrastructure.Services.Factory
 			spawner.MeleeMonsterTypeId = meleeMonsterTypeId;
 			spawner.RangeMonsterTypeId = rangeMonsterTypeId;
 			spawner.Id = spawnerId;
+			spawner.DestroySpawner += DestroySpawner;
 			Spawners.Add(spawner);
 		}
 
@@ -240,6 +271,9 @@ namespace CodeBase.Infrastructure.Services.Factory
 
 			_monsters.Clear();
 		}
+
+		private void DestroySpawner(SpawnPoint spawnPoint) =>
+			Spawners.Remove(spawnPoint);
 
 		private void Register(ISavedProgressReader progressReader)
 		{

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.Inputs
 {
-  public interface IInputService : IService
+  public interface IInputService : IService, IDisposable
   {
     event Action TowerButtonPressed;
     event Action TowerButtonUnpressed;
@@ -21,5 +21,7 @@ namespace CodeBase.Infrastructure.Services.Inputs
     bool IsAttackButton();
     event Action AttackButtonUnpressed;
     bool IsAttackButtonDown();
+    bool IsTalentButton();
+    bool IsTalentButtonUp();
   }
 }

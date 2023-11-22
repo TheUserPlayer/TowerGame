@@ -56,7 +56,8 @@ namespace CodeBase.Infrastructure.States
 				_services.Single<IAssetProvider>(),
 				_services.Single<IStaticDataService>(),
 				_services.Single<IPersistentProgressService>(),
-				 _services.Single<ITimerService>()));
+				_services.Single<ITimerService>(),
+				_stateMachine));
 
 			_services.RegisterSingle<IWindowService>(new WindowService(_services.Single<IUIFactory>(), _services.Single<ITimerService>()));
 
@@ -73,7 +74,8 @@ namespace CodeBase.Infrastructure.States
 				_services.Single<IPersistentProgressService>(),
 				_services.Single<IGameFactory>()));
 
-			_services.RegisterSingle<IBuildingService>(new BuildingService(_services.Single<IInputService>(), _services.Single<IGameFactory>(), _services.Single<IStaticDataService>()));
+			_services.RegisterSingle<IBuildingService>(new BuildingService(_services.Single<IInputService>(), _services.Single<IGameFactory>(),
+				_services.Single<IStaticDataService>(), _services.Single<IPersistentProgressService>()));
 		}
 
 

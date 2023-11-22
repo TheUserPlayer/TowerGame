@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using CodeBase.Data;
 using CodeBase.Hero;
+using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Tower;
 using CodeBase.Weapon;
 using UnityEngine;
@@ -12,7 +14,7 @@ namespace CodeBase.Hero
 	public class HeroRangeAttack : HeroAttack
 	{
 		[SerializeField] private RotateJoystick _rotate;
-		[SerializeField] private Bullet _arrow;
+		[SerializeField] private Arrow _arrow;
 		[SerializeField] private LineRenderer _attackLine;
 		[SerializeField] private Transform _heroView;
 		[SerializeField] private Transform _shootPosition;
@@ -26,6 +28,7 @@ namespace CodeBase.Hero
 		public Action OnFinishAiming;
 		private Vector3 _aimRotation;
 		private Vector3 _baseRotation;
+
 		public bool ShootMode
 		{
 			get
@@ -40,7 +43,7 @@ namespace CodeBase.Hero
 			_aimRotation = new Vector3(0, 90, 0);
 			_baseRotation = new Vector3(0, 0, 0);
 		}
-
+		
 		public void OnHideSword() =>
 			_sword.SetActive(false);
 
@@ -59,18 +62,19 @@ namespace CodeBase.Hero
 			_attackLine.transform.forward = transform.forward;
 			_attackLine.gameObject.SetActive(true);
 		}
-		
+
 		public void OnHideBow()
 		{
 			_heroView.localEulerAngles = _baseRotation;
-			_rotate.enabled = false;
 			OnFinishAiming?.Invoke();
 			_bow.SetActive(false);
 		}
 
 		public void Shoot()
 		{
-			Bullet bullet = Instantiate(_arrow, _shootPosition.position, Quaternion.identity);
+			Arrow bullet = Instantiate(_arrow, _shootPosition.position, Quaternion.identity);
+			bullet.Damage = _stats.ArrowDamage * _stats.DamageMultiplier;
+			bullet.MoveSpeed = _stats.ArrowSpeed;
 			bullet.transform.forward = -_attackLine.transform.forward;
 			_attackLine.gameObject.SetActive(false);
 		}
@@ -85,12 +89,13 @@ namespace CodeBase.Hero
 				_animator.PlayHideSword();
 			}
 		}
-		
+
 		protected override void AttackButtonUnpressed()
 		{
 			if (_attackButtonPressedTimer >= _meleeAttackTimer)
 				_animator.PlayBowShoot();
 
+			_rotate.enabled = false;
 			_attackLine.gameObject.SetActive(false);
 			base.AttackButtonUnpressed();
 		}

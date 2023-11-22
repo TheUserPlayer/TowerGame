@@ -10,6 +10,7 @@ namespace CodeBase.Enemy
 	public class EnemyDeath : MonoBehaviour
 	{
 		[SerializeField] private Collider _collider;
+		[SerializeField] private Collider _aggroCollider;
 		[SerializeField] private EnemyHealth _health;
 		[SerializeField] private Aggro _aggro;
 		[SerializeField] private AgentMoveToPlayer _move;
@@ -43,15 +44,15 @@ namespace CodeBase.Enemy
 
 		private void Die()
 		{
+			_range.enabled = false;
+			_aggroCollider.enabled = false;
 			_collider.enabled = false;
 			_health.HealthChanged -= OnHealthChanged;
 			_aggro.enabled = false;
-			_move.CanMove = false;
-			_move.StopMoving();
+			_move.Agent.speed = 0;
+			_attack.enabled = false;
 			_rotateToHero.enabled = false;
-			_range.enabled = false;
-			_attack.DisableAttack();
-			
+
 			_animator.PlayDeath();
 			RegisterKilledMobs();
 			

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chest
   m_EditorClassIdentifier: 
   MonsterTypeId: 6
-  Hp: 50
+  Hp: 75
   Damage: 10
   MaxLootValue: 10
   MinLootValue: 0

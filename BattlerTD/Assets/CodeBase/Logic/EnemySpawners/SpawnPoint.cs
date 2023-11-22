@@ -17,7 +17,8 @@ namespace CodeBase.Logic.EnemySpawners
 		[SerializeField] private float _delayBetweenSpawn = 7;
 		public MonsterTypeId MeleeMonsterTypeId;
 		public MonsterTypeId RangeMonsterTypeId;
-		
+
+		public Action<SpawnPoint> DestroySpawner;
 		public string Id { get; set; }
 
 		private IGameFactory _factory;
@@ -38,6 +39,17 @@ namespace CodeBase.Logic.EnemySpawners
 				_isActive = value;
 			}
 		}
+		public float DelayBetweenSpawn
+		{
+			get
+			{
+				return _delayBetweenSpawn;
+			}
+			set
+			{
+				_delayBetweenSpawn = value;
+			}
+		}
 
 		public void Construct(IGameFactory gameFactory)
 		{
@@ -52,6 +64,7 @@ namespace CodeBase.Logic.EnemySpawners
 		private void OnDestroy()
 		{
 			IsActive = false;
+			DestroySpawner?.Invoke(this);
 			if (_enemyDeath != null)
 				_enemyDeath.Happened -= Slay;
 		}
@@ -78,11 +91,11 @@ namespace CodeBase.Logic.EnemySpawners
 			{
 				CreateMob(MeleeMonsterTypeId);
 
-				yield return new WaitForSeconds(_delayBetweenSpawn);
+				yield return new WaitForSeconds(DelayBetweenSpawn);
 
 				CreateMob(RangeMonsterTypeId);
 				
-				yield return new WaitForSeconds(_delayBetweenSpawn);
+				yield return new WaitForSeconds(DelayBetweenSpawn);
 			}
 		}
 

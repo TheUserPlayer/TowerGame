@@ -1,6 +1,7 @@
 using System;
 using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Infrastructure.Services.Randomizer;
 using CodeBase.Logic;
 using UnityEngine;
 
@@ -11,7 +12,11 @@ namespace CodeBase.Hero
     public HeroAnimator Animator;
     public AudioSource LevelUpSound;
     
+    private IRandomService _randomService;
+    private IPersistentProgressService _progressService;
     private State _state;
+    private float _regenerationTimer = 7;
+    private float _elapsedTime;
 
     public event Action HealthChanged;
 
@@ -34,7 +39,13 @@ namespace CodeBase.Hero
       get => _state.MaxHP;
       set => _state.MaxHP = value;
     }
-    
+
+    public void Construct(IRandomService randomService, IPersistentProgressService progressService)
+    {
+      _randomService = randomService;
+      _progressService = progressService;
+    }
+
     public void LoadProgress(PlayerProgress progress)
     {
       _state = progress.HeroState;
@@ -47,13 +58,31 @@ namespace CodeBase.Hero
       progress.HeroState.MaxHP = Max;
     }
 
-    public void TakeDamage(float damage)
+    private void Update()
+    {
+      _elapsedTime += Time.deltaTime;
+      if (_regenerationTimer <= _elapsedTime)
+      {
+        _elapsedTime = 0;
+        Current += _progressService.Progress.KingState.Regeneration;
+      }
+    }
+
+    public void TakeDamage(float damage, IHealth invoker)
     {
       if(Current <= 0)
         return;
       
-      Current -= damage;
-      Animator.PlayHit();
+      float next = _randomService.Next(1, 100);
+      if (next < _progressService.Progress.HeroStats.MirrorHitChance)
+      {
+        invoker.TakeDamage(_progressService.Progress.HeroStats.MirrorHitMultiplier);
+      }
+      else
+      {
+        Current -= damage;
+        Animator.PlayHit();  
+      }
     }
 
     public void LevelUp()
@@ -64,5 +93,6 @@ namespace CodeBase.Hero
       Max *= 1.15f;
       Current = Max;
     }
+
   }
 }

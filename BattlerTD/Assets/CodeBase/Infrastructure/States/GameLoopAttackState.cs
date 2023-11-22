@@ -21,7 +21,7 @@ namespace CodeBase.Infrastructure.States
 		private readonly IGameFactory _gameFactory;
 		private readonly SceneLoader _sceneLoader;
 		private IHealth _heroHealth;
-		private float _monstersForWave = 1;
+		private float _monstersForWave;
 		private List<GameObject> _monstersInGame = new List<GameObject>();
 
 		public GameLoopAttackState(GameStateMachine stateMachine, IWindowService windowService, IPersistentProgressService progressService, LoadingCurtain loadingCurtain,
@@ -39,20 +39,19 @@ namespace CodeBase.Infrastructure.States
 		{
 			DescribeHeroDeath();
 			StopWave();
-			_gameFactory.HUD.DisappearAttackButton();
-			_monstersForWave += 2;
+
 			_gameFactory.Monsters.Clear();
 			_progressService.Progress.KillData.ResetKillData();
 			_progressService.Progress.KillData.NextWave();
 			_gameFactory.MonsterCreated -= MonsterCreated;
-			_progressService.Progress.KillData.LootChanged -= KilledMobsChanged;
+			_progressService.Progress.KillData.KilledMobsChanged -= KilledMobsChanged;
 		}
 
 		public void Enter()
 		{
 			_gameFactory.HUD.AppearAttackButton();
 			_gameFactory.MonsterCreated += MonsterCreated;
-			_progressService.Progress.KillData.LootChanged += KilledMobsChanged;
+			_progressService.Progress.KillData.KilledMobsChanged += KilledMobsChanged;
 			_gameFactory.HeroGameObject.TryGetComponent(out _heroHealth);
 			SubscribeHeroDeath();
 
@@ -90,20 +89,24 @@ namespace CodeBase.Infrastructure.States
 		}
 
 
-
-
 		private void StartWave()
 		{
+			_monstersForWave += 2;
 			float result = _monstersForWave / _gameFactory.Spawners.Count;
 
 			foreach (SpawnPoint spawner in _gameFactory.Spawners)
+			{
 				spawner.StartSpawnMeleeMob(result);
+			}
 		}
 
 		private void StopWave()
 		{
 			foreach (SpawnPoint spawner in _gameFactory.Spawners)
+			{
+				spawner.DelayBetweenSpawn *= 0.7f;
 				spawner.StopSpawn(_monstersForWave);
+			}
 		}
 
 		private void OnCutsceneEnded() { }

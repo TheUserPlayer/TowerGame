@@ -6,6 +6,7 @@ using CodeBase.Logic.EnemySpawners;
 using CodeBase.StaticData;
 using CodeBase.Tower;
 using CodeBase.UI.Elements;
+using CodeBase.UI.Menu;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.Factory
@@ -30,10 +31,12 @@ namespace CodeBase.Infrastructure.Services.Factory
 		Action<GameObject> MonsterCreated { get; set; }
 		Hud HUD { get; }
 		TowerPanel Panel { get; }
+		HeroesPreviewMainMenu HeroesPreview { get; }
 		void CreateBossSpawner(Vector3 at, MonsterTypeId monsterTypeId, Transform parent);
 		GameObject CreateKing(Vector3 at);
 		Grid CreateGrid();
 		GameObject CreateTower(TowerType towerType, Vector3 position, Quaternion rotation);
+		HeroesPreviewMainMenu CreateHeroVisual(Vector3 at);
 	}
 
 }

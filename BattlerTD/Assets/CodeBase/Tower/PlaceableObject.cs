@@ -16,6 +16,7 @@ namespace CodeBase.Tower
 		[SerializeField] protected TriggerObserver _triggerObserver;
 		[SerializeField] protected bool _inAnotherTower;
 
+		public int TowerCost;
 		protected bool Placed { get; private set; }
 		public Vector3Int Size { get; private set; }
 		private Vector3[] Vertices = new Vector3[4];

@@ -3,6 +3,7 @@ using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.Services.Inputs;
+using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.StaticData;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -28,6 +29,7 @@ namespace CodeBase.Tower
 		private readonly IInputService _input;
 		private readonly IGameFactory _factory;
 		private readonly IStaticDataService _staticData;
+		private readonly IPersistentProgressService _progressService;
 		private bool _ableToPlace;
 		private bool _isActive;
 		private bool _isDraggingObject;
@@ -59,12 +61,13 @@ namespace CodeBase.Tower
 			}
 		}
 
-		public BuildingService(IInputService input, IGameFactory factory, IStaticDataService staticData)
+		public BuildingService(IInputService input, IGameFactory factory, IStaticDataService staticData, IPersistentProgressService progressService)
 		{
 			_layerMask = 1 << LayerMask.NameToLayer("Default") | 1 << LayerMask.NameToLayer("Wall");
 			_input = input;
 			_factory = factory;
 			_staticData = staticData;
+			_progressService = progressService;
 
 			_input.TowerButtonUnpressed += TowerButtonUnpressed;
 		}
@@ -81,10 +84,14 @@ namespace CodeBase.Tower
 			if (!_isActive)
 				return;
 
+			if (!_drag || !_objectToPlace)
+				return;
+
 			_isDraggingObject = false;
 			_drag.StopDraggingCoroutine();
 			if (CanBePlaced(_objectToPlace, _objectToPlace.InAnotherTower))
 			{
+				_progressService.Progress.WorldData.LootData.AddSilver(-_objectToPlace.TowerCost);
 				_objectToPlace.Place(_drag);
 				Vector3Int start = GridLayout.WorldToCell(_objectToPlace.GetStartPosition());
 				TakeArea(start, _objectToPlace.Size);
@@ -171,13 +178,15 @@ namespace CodeBase.Tower
 			return canMove;
 		}
 
-		public void InitTowerType(TowerType towerType)
+		public void InitTowerType(TowerType towerType, int towerCost)
 		{
 			if (!_isActive)
 				return;
 			
 			if (towerType != TowerType.None)
+			{
 				InitializeWithObject(towerType);
+			}
 		}
 
 		private static TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
@@ -202,6 +211,7 @@ namespace CodeBase.Tower
 
 		private void InitializeWithObject(TowerType towerType)
 		{
+			
 			Vector3 position = SnapCoordinateToGrid(GetMouseWorldPosition());
 
 			_objectToPlace = InitTower(towerType, position).GetComponent<PlaceableObject>();

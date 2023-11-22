@@ -32,6 +32,7 @@ namespace CodeBase.Infrastructure.States
 		private readonly ITimerService _timerService;
 		private readonly IBuildingService _buildingService;
 		private GameObject _hero;
+		private bool _firstEnter = true;
 
 		public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory,
 			IPersistentProgressService progressService, IStaticDataService staticDataService, IUIFactory uiFactory, ITimerService timerService,

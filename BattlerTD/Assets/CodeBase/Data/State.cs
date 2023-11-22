@@ -7,6 +7,7 @@ namespace CodeBase.Data
   {
     public float CurrentHP;
     public float MaxHP;
+    public int Regeneration; 
 
     public void ResetHp()
     {

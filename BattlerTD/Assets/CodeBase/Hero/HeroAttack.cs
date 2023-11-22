@@ -1,13 +1,16 @@
+using System;
+using CodeBase.Data;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Inputs;
+using CodeBase.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
 
 namespace CodeBase.Hero
 {
-	public abstract class HeroAttack : MonoBehaviour
+	public abstract class HeroAttack : MonoBehaviour, ISavedProgressReader
 	{
 		private const string Hittable = "Hittable";
-		
+
 		[SerializeField] protected GameObject _sword;
 		[SerializeField] protected GameObject _bow;
 		[SerializeField] protected HeroAnimator _animator;
@@ -16,6 +19,7 @@ namespace CodeBase.Hero
 		protected IInputService _inputService;
 
 		protected float _attackButtonPressedTimer;
+		protected Stats _stats;
 		protected static int _layerMask;
 
 		private void Awake()
@@ -26,13 +30,20 @@ namespace CodeBase.Hero
 			_layerMask = 1 << LayerMask.NameToLayer(Hittable);
 		}
 
+		private void OnDestroy() =>
+			_inputService.AttackButtonUnpressed -= AttackButtonUnpressed;
+
+		public void LoadProgress(PlayerProgress progress) =>
+			_stats = progress.HeroStats;
+
 		private void Update()
 		{
 			if (!_inputService.IsAttackButton())
 				return;
 
-			if(_inputService.Tap)
+			if (_inputService.Tap)
 				Debug.Log("da");
+
 			OnUpdate();
 			UpdateTimer();
 		}
@@ -44,5 +55,6 @@ namespace CodeBase.Hero
 
 		protected virtual void AttackButtonUnpressed() =>
 			_attackButtonPressedTimer = 0;
+
 	}
 }

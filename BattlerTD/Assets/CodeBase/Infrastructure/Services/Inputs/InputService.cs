@@ -11,6 +11,7 @@ namespace CodeBase.Infrastructure.Services.Inputs
 		protected const string Vertical2 = "Vertical2";
 		private const string Button = "Fire";
 		private const string Button2 = "Fire2";
+		private const string Talent = "Talent";
 		
 		private bool _isDragging;
 		private int _towerButtonCounter;
@@ -50,7 +51,12 @@ namespace CodeBase.Infrastructure.Services.Inputs
 		}
 
 		public bool IsAttackButton() =>
-			SimpleInput.GetButton(Button);		
+			SimpleInput.GetButton(Button);			
+		
+		public bool IsTalentButton() =>
+			SimpleInput.GetButton(Talent);			
+		public bool IsTalentButtonUp() =>
+			SimpleInput.GetButtonUp(Talent);		
 		
 		public bool IsAttackButtonDown() =>
 			SimpleInput.GetButtonDown(Button);
@@ -161,6 +167,11 @@ namespace CodeBase.Infrastructure.Services.Inputs
 		{
 			_startTouch = _swipeDelta = Vector2.zero;
 			_isDragging = false;
+		}
+
+		public void Dispose()
+		{
+			
 		}
 	}
 }

@@ -16,5 +16,7 @@ namespace CodeBase.Infrastructure.Services.StaticData
     WindowConfig ForWindow(WindowId window);
     WindowConfig ForWinPanel(WindowId windowId);
     WindowConfig ForDeathPanel(WindowId windowId);
+    WindowConfig ForMenu(WindowId windowId);
+    TalentStaticData ForTalent();
   }
 }

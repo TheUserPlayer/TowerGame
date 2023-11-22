@@ -1103,7 +1103,7 @@ Transform:
   m_GameObject: {fileID: 4392666515378014262}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.35, y: 1.35, z: 1.35}
+  m_LocalScale: {x: 1.0874925, y: 1.0874925, z: 1.0874925}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 37520547421524761}
@@ -1127,10 +1127,10 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0204664, y: 1.9356794, z: 0.87586665}
-  m_Center: {x: 0, y: 0.7322917, z: 0.067856}
+  m_Size: {x: 0.88646996, y: 0.81369835, z: 0.5792117}
+  m_Center: {x: 0.038517527, y: 0.7322917, z: -0.0007704125}
 --- !u!114 &5973757474480104051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1152,6 +1152,7 @@ MonoBehaviour:
   _collider: {fileID: 7766654551933744463}
   _triggerObserver: {fileID: 3597972171380570236}
   _inAnotherTower: 0
+  TowerCost: 0
   _trapMesh: {fileID: 1897071208584017005}
   _arrows:
   - {fileID: 972897687979998144}
@@ -2235,7 +2236,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.366457, y: 1.9442747, z: 1.8219506}
+  m_Size: {x: 2.2242756, y: 1.9442745, z: 0.48333788}
   m_Center: {x: 0, y: 0.7374821, z: 0}
 --- !u!114 &3597972171380570236
 MonoBehaviour:
