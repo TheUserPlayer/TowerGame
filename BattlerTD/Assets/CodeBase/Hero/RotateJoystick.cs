@@ -7,8 +7,6 @@ namespace CodeBase.Hero
 {
 	public class RotateJoystick : MonoBehaviour
 	{
-		[SerializeField] private Transform _lineView;
-
 		public float rotateSpeed = 15;
 		
 		private IInputService _inputService;

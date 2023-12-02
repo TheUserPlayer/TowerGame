@@ -8,14 +8,13 @@ namespace CodeBase.Enemy
 {
 	public class AgentMoveToPlayer : Follow
 	{
+		private const float MinimalDistance = 1.1f;
+		
 		public NavMeshAgent Agent;
 		public Attack _enemyAttack;
 
-		private const float MinimalDistance = 1.1f;
-		
-
-		public Transform _targetTransform;
-		public Transform _cachedKingTransform;
+		private Transform _targetTransform;
+		private Transform _cachedKingTransform;
 		private float _cachedSpeed;
 		private bool _isSpeedDecreased;
 

@@ -1,4 +1,6 @@
 using System;
+using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
 using UnityEngine;
 
@@ -8,6 +10,8 @@ namespace CodeBase.Tower
 	{
 		[SerializeField] private Rigidbody _rigidbody;
 		[SerializeField] private GameObject _explosionVFX;
+		
+		private IPersistentProgressService _persistentProgress;
 		public float Damage { get; set; }
 		public float MoveSpeed { get; set; }
 

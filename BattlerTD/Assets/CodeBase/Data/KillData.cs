@@ -21,7 +21,7 @@ namespace CodeBase.Data
 
     public void ResetWaveData()
     {
-      MonsterWavesForFinish = 1;
+      MonsterWavesForFinish = 2;
       CurrentMonsterWaves = 0;
       WaveChanged?.Invoke();
     }

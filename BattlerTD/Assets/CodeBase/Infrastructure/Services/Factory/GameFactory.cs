@@ -101,6 +101,7 @@ namespace CodeBase.Infrastructure.Services.Factory
 		{
 			_heroGameObject = InstantiateRegistered(AssetPath.HeroPath, at);
 			_heroGameObject.GetComponent<HeroMove>().Construct(_timerService, _inputService);
+			_heroGameObject.GetComponent<IHealth>().Construct(_randomService, _persistentProgressService);
 			return _heroGameObject;
 		}
 		public HeroesPreviewMainMenu CreateHeroVisual(Vector3 at)

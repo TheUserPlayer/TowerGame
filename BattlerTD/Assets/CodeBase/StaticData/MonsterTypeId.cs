@@ -8,6 +8,10 @@ namespace CodeBase.StaticData
     Wizard = 4,
     Orc = 5,
     AngryChest = 6,
-    Beholder = 7,
+    Beholder = 7, 
+    Slime = 8, 
+    SlimeDivided = 9,
+    Troll = 10,
+    GoblinTrio = 11,
   }
 }

@@ -24,8 +24,7 @@ namespace CodeBase.Logic.EnemySpawners
 		private IGameFactory _factory;
 
 		private EnemyDeath _enemyDeath;
-
-		private bool _slain;
+		
 		public bool _isActive;
 		private float _levelStage = 1;
 		public bool IsActive
@@ -64,9 +63,7 @@ namespace CodeBase.Logic.EnemySpawners
 		private void OnDestroy()
 		{
 			IsActive = false;
-			DestroySpawner?.Invoke(this);
-			if (_enemyDeath != null)
-				_enemyDeath.Happened -= Slay;
+			DestroySpawner?.Invoke(this);	
 		}
 
 		public void StartSpawnMeleeMob(float times) =>
@@ -102,17 +99,7 @@ namespace CodeBase.Logic.EnemySpawners
 		private GameObject CreateMob(MonsterTypeId monsterTypeId)
 		{
 			GameObject monster = _factory.CreateMonster(monsterTypeId, transform);
-			_enemyDeath = monster.GetComponent<EnemyDeath>();
-			_enemyDeath.Happened += Slay;
 			return monster;
-		}
-
-		private void Slay()
-		{
-			if (_enemyDeath != null)
-				_enemyDeath.Happened -= Slay;
-
-			_slain = true;
 		}
 	}
 }

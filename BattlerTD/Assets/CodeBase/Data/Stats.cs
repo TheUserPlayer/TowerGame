@@ -15,5 +15,6 @@ namespace CodeBase.Data
 		public float MirrorHitChance;
 		public float MirrorHitMultiplier;
 		public float MoveSpeed;
+		public float MagicShieldChance = 100;
 	}
 }

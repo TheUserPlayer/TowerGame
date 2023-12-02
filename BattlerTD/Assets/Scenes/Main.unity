@@ -10297,6 +10297,8 @@ MonoBehaviour:
   _rotationAngleY: 0
   _distance: 10
   _offsetY: 0
+  _offsetX: 0
+  _offsetZ: 0
   _following: {fileID: 1037765345}
 --- !u!1001 &333136771
 PrefabInstance:
@@ -37502,7 +37504,7 @@ PrefabInstance:
     - target: {fileID: 8760688189319195052, guid: f5a42311009a9674fbc37df24a9a3d0c,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.4999998
+      value: 2.5479996
       objectReference: {fileID: 0}
     - target: {fileID: 8760688189319195052, guid: f5a42311009a9674fbc37df24a9a3d0c,
         type: 3}
@@ -37517,7 +37519,7 @@ PrefabInstance:
     - target: {fileID: 8760688189319195052, guid: f5a42311009a9674fbc37df24a9a3d0c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.7599955
+      value: -4.76
       objectReference: {fileID: 0}
     - target: {fileID: 8760688189319195052, guid: f5a42311009a9674fbc37df24a9a3d0c,
         type: 3}
@@ -37527,7 +37529,7 @@ PrefabInstance:
     - target: {fileID: 8760688189319195052, guid: f5a42311009a9674fbc37df24a9a3d0c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 17.308493
+      value: 17.358
       objectReference: {fileID: 0}
     - target: {fileID: 8760688189319195052, guid: f5a42311009a9674fbc37df24a9a3d0c,
         type: 3}

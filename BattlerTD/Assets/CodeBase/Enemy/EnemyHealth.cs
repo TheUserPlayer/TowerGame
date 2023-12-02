@@ -42,7 +42,7 @@ namespace CodeBase.Enemy
 			_progressService = progressService;
 		}
 
-		public void TakeDamage(float damage,  IHealth invoker)
+		public void TakeDamage(float damage,  IHealth invoker = null)
 		{
 			float next = _randomService.Next(1, 100);
 			if (next < _progressService.Progress.HeroStats.CriticalChance)

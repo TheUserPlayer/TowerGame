@@ -13,6 +13,8 @@ namespace CodeBase.UI.Elements
 	public class SkillDescriptionWindow : MonoBehaviour
 	{
 		[SerializeField] private TextMeshProUGUI _skillDescription;
+		[SerializeField] private TextMeshProUGUI _buyButtonText;
+		[SerializeField] private TextMeshProUGUI _closeButtonText;
 		[SerializeField] private Image _skillDescriptionBackground;
 		[SerializeField] private Button _closeButton;
 		[SerializeField] private Button _buyButton;
@@ -24,6 +26,7 @@ namespace CodeBase.UI.Elements
 			AllServices.Container.Single<IPersistentProgressService>();
 			_closeButton.onClick.AddListener(Disappear);
 			_buyButton.onClick.AddListener(BuyTalent);
+			Disappear();
 		}
 
 		private void BuyTalent()
@@ -33,14 +36,17 @@ namespace CodeBase.UI.Elements
 
 		public void Appear(ProgressIconButton talentButton)
 		{
+			gameObject.SetActive(true);
+			_talentButton = talentButton;
 			_skillDescription.DOFade(1, _duration);
 			_skillDescriptionBackground.DOFade(1, _duration);
 			_closeButton.targetGraphic.DOFade(1, _duration);
 			_buyButton.targetGraphic.DOFade(1, _duration);
 			_buyButton.enabled = true;
-			_talentButton = talentButton;
-		}		
-		
+			_buyButtonText.DOFade(1, _duration);
+			_closeButtonText.DOFade(1, _duration);
+		}
+
 		public void Disappear()
 		{
 			_buyButton.enabled = false;
@@ -48,6 +54,11 @@ namespace CodeBase.UI.Elements
 			_skillDescriptionBackground.DOFade(0, _duration);
 			_closeButton.targetGraphic.DOFade(0, _duration);
 			_buyButton.targetGraphic.DOFade(0, _duration);
+			_buyButtonText.DOFade(0, _duration);
+			_closeButtonText.DOFade(0, _duration).OnComplete(() =>
+			{
+				gameObject.SetActive(false);
+			});
 		}
 
 		public void SetDescription(string description)

@@ -394,7 +394,7 @@ Transform:
   - {fileID: 2909255701216970967}
   - {fileID: 3609823612347776836}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &7766654551933744463
 BoxCollider:
@@ -805,6 +805,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: floortraporg1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 00e0593a62927de4ab6da7fe27123c4c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,5 +1,8 @@
+using CodeBase.Hero;
 using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.UI.Elements;
 using TMPro;
 using UnityEngine;
@@ -22,10 +25,18 @@ namespace CodeBase.UI.Menu
 		private float _elapsedTime;
 		private bool _isAppeared;
 		protected IPersistentProgressService ProgressService;
+		protected IGameFactory GameFactory;
+		protected IStaticDataService StaticData;
+		protected HeroTierToUpgrade _heroTierToUpgrade;
+		protected HeroTierToUpgrade _heroTierToUpgradePreview;
 
 		private void Awake()
 		{
 			ProgressService = AllServices.Container.Single<IPersistentProgressService>();
+			GameFactory = AllServices.Container.Single<IGameFactory>();
+			StaticData = AllServices.Container.Single<IStaticDataService>();
+			_heroTierToUpgradePreview = GameFactory.HeroesPreview.GetComponent<HeroTierToUpgrade>();
+			_heroTierToUpgrade = StaticData.ForHero().ThingsToUpgrade;
 			TalentButton.onClick.AddListener(OpenDescriptionWindow);
 			PriceText.text = Price.ToString();
 		}

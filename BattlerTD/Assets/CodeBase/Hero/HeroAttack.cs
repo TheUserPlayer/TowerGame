@@ -20,7 +20,7 @@ namespace CodeBase.Hero
 
 		protected float _attackButtonPressedTimer;
 		protected Stats _stats;
-		protected static int _layerMask;
+		protected int _layerMask;
 
 		private void Awake()
 		{
