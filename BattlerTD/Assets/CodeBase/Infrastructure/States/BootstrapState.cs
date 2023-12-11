@@ -23,12 +23,12 @@ namespace CodeBase.Infrastructure.States
 		private readonly AllServices _services;
 		private readonly AudioSource _audioSource;
 
-		public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, AllServices services)
+		public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, AllServices services, AudioSource audioSource)
 		{
 			_stateMachine = stateMachine;
 			_sceneLoader = sceneLoader;
 			_services = services;
-
+			_audioSource = audioSource;
 			RegisterServices();
 		}
 
@@ -43,8 +43,7 @@ namespace CodeBase.Infrastructure.States
 		{
 			RegisterStaticDataService();
 
-
-			_services.RegisterSingle<IAudioService>(new AudioService(_audioSource));
+			_services.RegisterSingle<IAudioService>(new AudioService(_services.Single<IStaticDataService>(), _audioSource));
 			_services.RegisterSingle<IGameStateMachine>(_stateMachine);
 			_services.RegisterSingle<IAssetProvider>(new AssetProvider());
 			_services.RegisterSingle(InputService());

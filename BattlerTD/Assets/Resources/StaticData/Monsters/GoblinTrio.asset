@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: GoblinTrio
   m_EditorClassIdentifier: 
   MonsterTypeId: 11
-  Hp: 150
+  Hp: 75
   Damage: 100
   MaxLootValue: 10
   MinLootValue: 0
   EffectiveDistance: 0.5
   Cleavage: 0.5
   MoveSpeed: 6
-  Prefab: {fileID: 4107925125973944480, guid: 6a960bc8651028340a8804feed88fc46, type: 3}
+  Prefab: {fileID: 8672805788066133549, guid: 6a960bc8651028340a8804feed88fc46, type: 3}

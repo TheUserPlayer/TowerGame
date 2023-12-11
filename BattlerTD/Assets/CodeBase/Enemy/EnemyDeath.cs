@@ -8,6 +8,7 @@ namespace CodeBase.Enemy
 	public class EnemyDeath : MonoBehaviour
 	{
 		[SerializeField] private Collider _collider;
+		[SerializeField] private Collider _hitBox;
 		[SerializeField] private Collider _aggroCollider;
 		[SerializeField] private EnemyHealth _health;
 		[SerializeField] private Aggro _aggro;
@@ -19,7 +20,7 @@ namespace CodeBase.Enemy
 		[SerializeField] private GameObject _deathFx;
 		
 		private IPersistentProgressService _progressService;
-		private float _destroyTimer = 3;
+		private float _destroyTimer = 1.5f;
 
 		public event Action Happened;
 
@@ -43,6 +44,7 @@ namespace CodeBase.Enemy
 
 		private void Die(float destroyTimer)
 		{
+			_hitBox.enabled = false;
 			_range.enabled = false;
 			_collider.enabled = false;
 			_health.HealthChanged -= OnHealthChanged;

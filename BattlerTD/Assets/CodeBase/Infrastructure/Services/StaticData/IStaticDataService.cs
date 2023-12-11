@@ -10,6 +10,7 @@ namespace CodeBase.Infrastructure.Services.StaticData
     void Load();
     MonsterStaticData ForMonster(MonsterTypeId typeId);
     LevelStaticData ForLevel(string sceneKey);
+    SoundStaticData ForSounds();
     TowerStaticData ForTower(TowerType towerType);
     
     HeroStaticData ForHero();

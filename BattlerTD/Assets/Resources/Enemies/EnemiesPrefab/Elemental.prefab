@@ -131,7 +131,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4107925125973944480}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.74, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.67296, y: 0.67296, z: 0.67296}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -159,8 +159,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Agent: {fileID: 5653411175728527918}
   _enemyAttack: {fileID: 8123567499975575544}
-  _targetTransform: {fileID: 0}
-  _cachedKingTransform: {fileID: 0}
 --- !u!195 &5653411175728527918
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -241,6 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 1754582917818042222}
+  _hitBox: {fileID: 1754582917818042222}
   _aggroCollider: {fileID: 1161521407749321944}
   _health: {fileID: 6024362517802320797}
   _aggro: {fileID: 2135686755011606047}

@@ -34,11 +34,11 @@ namespace CodeBase.Tower
 		}
 
 		private int Hit() =>
-			Physics.OverlapBoxNonAlloc(transform.parent.position, _size.bounds.extents * 2, _enemies, Quaternion.identity, _layerMask);
+			Physics.OverlapBoxNonAlloc(_size.bounds.center, _size.bounds.extents * 2, _enemies, Quaternion.identity, _layerMask);
 
 		private void OnDrawGizmos()
 		{
-			Gizmos.DrawCube(transform.parent.position, _size.bounds.extents * 2);
+			Gizmos.DrawWireCube(_size.bounds.center, _size.bounds.extents * 2);
 		}
 	}
 }

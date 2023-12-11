@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Slime
   m_EditorClassIdentifier: 
   MonsterTypeId: 8
-  Hp: 150
-  Damage: 11
+  Hp: 200
+  Damage: 15
   MaxLootValue: 10
   MinLootValue: 0
   EffectiveDistance: 0.5
   Cleavage: 0.5
-  MoveSpeed: 3
+  MoveSpeed: 4
   Prefab: {fileID: 4107925125973944480, guid: ff4c39e0f3d7f3d4daf334a6135ec647, type: 3}

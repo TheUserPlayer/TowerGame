@@ -13,6 +13,7 @@ namespace CodeBase.Infrastructure.Services.StaticData
     private const string MonstersDataPath = "StaticData/Monsters";
     private const string LevelsDataPath = "StaticData/Levels";
     private const string HeroDataPath = "StaticData/Hero/Hero";
+    private const string SoundsDataPath = "StaticData/Sound/Sound";
     private const string TowersDataPath = "StaticData/Towers";
     private const string StaticDataMenu = "StaticData/UI/MainMenuWindow";
     private const string StaticDataWinPanel = "StaticData/UI/WinPanel";
@@ -27,11 +28,14 @@ namespace CodeBase.Infrastructure.Services.StaticData
     private Dictionary<WindowId, WindowConfig> _winPanelConfigs;
     private Dictionary<WindowId, WindowConfig> _deathPanelConfigs;
     private HeroStaticData _hero;
+    private SoundStaticData _sounds;
 
     public void Load()
     {
       _hero = Resources.Load<HeroStaticData>(HeroDataPath);
 
+      _sounds = Resources.Load<SoundStaticData>(SoundsDataPath);
+      
       _towers = Resources
         .LoadAll<TowerStaticData>(TowersDataPath)
         .ToDictionary(x => x.TowerTypeId, x => x);
@@ -73,8 +77,11 @@ namespace CodeBase.Infrastructure.Services.StaticData
     public LevelStaticData ForLevel(string sceneKey) =>
       _levels.TryGetValue(sceneKey, out LevelStaticData staticData)
         ? staticData
-        : null; 
-    
+        : null;
+
+    public SoundStaticData ForSounds() =>
+      _sounds;
+
     public TowerStaticData ForTower(TowerType towerType) =>
       _towers.TryGetValue(towerType, out TowerStaticData staticData)
         ? staticData
@@ -109,4 +116,6 @@ namespace CodeBase.Infrastructure.Services.StaticData
       _hero;
 
   }
+
+ 
 }

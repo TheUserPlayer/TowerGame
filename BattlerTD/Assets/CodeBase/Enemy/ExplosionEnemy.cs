@@ -9,6 +9,7 @@ namespace CodeBase.Enemy
 	{
 		[SerializeField] private TriggerObserver _triggerObserver;
 		[SerializeField] private ParticleSystem _explosionVFX;
+		[SerializeField] private AudioSource _explosionSFX;
 		[SerializeField] private float _damage;
 
 		private IPersistentProgressService _progressService;
@@ -24,7 +25,9 @@ namespace CodeBase.Enemy
 
 		private void TriggerEnter(Collider obj)
 		{
+			
 			obj.GetComponent<IHealth>().TakeDamage(_damage);
+			_explosionSFX.Play();
 			Instantiate(_explosionVFX, transform.position, Quaternion.identity);	
 			Destroy(gameObject, 0.5f);
 			_progressService.Progress.KillData.Add(1);           

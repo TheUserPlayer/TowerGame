@@ -39,10 +39,8 @@ namespace CodeBase.Infrastructure.Services.Factory
 		private readonly List<SpawnPoint> _spawners = new List<SpawnPoint>();
 		private GameObject _heroGameObject;
 
-		private List<GameObject> _monsters = new List<GameObject>();
 		private BossSpawnPoint _bossSpawner;
 		private GameObject _mainPumpkin;
-		private Hud _hud;
 		private TowerPanel _towerPanel;
 		private HeroesPreviewMainMenu _heroesPreview;
 
@@ -51,24 +49,9 @@ namespace CodeBase.Infrastructure.Services.Factory
 		public BossSpawnPoint BossSpawner => _bossSpawner;
 		public List<SpawnPoint> Spawners => _spawners;
 		public Action<GameObject> MonsterCreated { get; set; }
-		public List<GameObject> Monsters
-		{
-			get
-			{
-				return _monsters;
-			}
-			set
-			{
-				_monsters = value;
-			}
-		}
-		public Hud HUD
-		{
-			get
-			{
-				return _hud;
-			}
-		}
+		public List<GameObject> Monsters { get; } = new List<GameObject>();
+		public Hud HUD { get; private set; }
+
 		public TowerPanel Panel
 		{
 			get
@@ -113,14 +96,14 @@ namespace CodeBase.Infrastructure.Services.Factory
 
 		public Hud CreateHud()
 		{
-			_hud = InstantiateRegistered(AssetPath.HudPath).GetComponent<Hud>();
-			_hud.GetComponentInChildren<UIAttackButton>().Construct(_heroGameObject.GetComponent<HeroRangeAttack>());
-			_hud.GetComponentInChildren<LootCounter>()
+			HUD = InstantiateRegistered(AssetPath.HudPath).GetComponent<Hud>();
+			HUD.GetComponentInChildren<UIAttackButton>().Construct(_heroGameObject.GetComponent<HeroRangeAttack>());
+			HUD.GetComponentInChildren<LootCounter>()
 				.Construct(_persistentProgressService.Progress.WorldData);	
-			_hud.GetComponentInChildren<WaveCounter>()
+			HUD.GetComponentInChildren<WaveCounter>()
 				.Construct(_persistentProgressService.Progress.KillData);
 
-			TowerUI[] towerUis = _hud.GetComponentsInChildren<TowerUI>();
+			TowerUI[] towerUis = HUD.GetComponentsInChildren<TowerUI>();
 			foreach (TowerUI towerUi in towerUis)
 			{
 				if (towerUi.TowerType == TowerType.None)
@@ -130,11 +113,11 @@ namespace CodeBase.Infrastructure.Services.Factory
 				towerUi.TowerCost = towerData.Cost;
 			}
 
-			_towerPanel = _hud.GetComponentInChildren<TowerPanel>();
+			_towerPanel = HUD.GetComponentInChildren<TowerPanel>();
 			foreach (OpenWindowButton openWindowButton in HUD.GetComponentsInChildren<OpenWindowButton>())
 				openWindowButton.Init(_windowService);
 
-			return _hud;
+			return HUD;
 		}
 
 		public LootPiece CreateLoot()
@@ -270,7 +253,7 @@ namespace CodeBase.Infrastructure.Services.Factory
 				Object.Destroy(monster.gameObject);
 			}
 
-			_monsters.Clear();
+			Monsters.Clear();
 		}
 
 		private void DestroySpawner(SpawnPoint spawnPoint) =>

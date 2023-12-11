@@ -1,20 +1,13 @@
-using UnityEngine;
-
 namespace CodeBase.Enemy
 {
 	public class DividedSlime : BaseSlime
 	{
-		public void Construct(SlimeDividerCounter slimeDividerCounter) =>
-			_divideCounter = slimeDividerCounter;
+		public void Construct(SlimeDividerCounter divideCounter) =>
+			_divideCounter = divideCounter;
 
-		protected override void DivideSlime(Transform spot)
+		protected override void DeathHappened()
 		{
-			base.DivideSlime(transform);
-
-			DescribeDeath();
+			//_gameFactory.Monsters.RemoveAt(_gameFactory.Monsters.Count - 1);
 		}
-
-		public void DescribeDeath() =>
-			_enemyDeath.Happened -= DeathHappened;
 	}
 }

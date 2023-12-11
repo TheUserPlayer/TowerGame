@@ -34,7 +34,6 @@ namespace CodeBase.Data
     public void ResetKillData()
     {
       KilledMobs = 0;
-      KilledMobsChanged?.Invoke();
     }
   }
 }

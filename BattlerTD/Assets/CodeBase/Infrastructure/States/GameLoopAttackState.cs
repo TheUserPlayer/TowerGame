@@ -1,6 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using CodeBase.Hero;
+using CodeBase.Infrastructure.Services.Audio;
 using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.Timers;
@@ -19,13 +19,13 @@ namespace CodeBase.Infrastructure.States
 		private readonly LoadingCurtain _loadingCurtain;
 		private readonly ITimerService _timerService;
 		private readonly IGameFactory _gameFactory;
+		private readonly IAudioService _audioService;
 		private readonly SceneLoader _sceneLoader;
 		private IHealth _heroHealth;
 		private float _monstersForWave;
-		private List<GameObject> _monstersInGame = new List<GameObject>();
 
 		public GameLoopAttackState(GameStateMachine stateMachine, IWindowService windowService, IPersistentProgressService progressService, LoadingCurtain loadingCurtain,
-			ITimerService timerService, IGameFactory gameFactory)
+			ITimerService timerService, IGameFactory gameFactory, IAudioService audioService)
 		{
 			_stateMachine = stateMachine;
 			_windowService = windowService;
@@ -33,13 +33,13 @@ namespace CodeBase.Infrastructure.States
 			_loadingCurtain = loadingCurtain;
 			_timerService = timerService;
 			_gameFactory = gameFactory;
+			_audioService = audioService;
 		}
 
 		public void Exit()
 		{
 			DescribeHeroDeath();
 			StopWave();
-
 			_gameFactory.Monsters.Clear();
 			_progressService.Progress.KillData.ResetKillData();
 			_progressService.Progress.KillData.NextWave();
@@ -49,6 +49,8 @@ namespace CodeBase.Infrastructure.States
 
 		public void Enter()
 		{
+			_gameFactory.Monsters.Clear();
+			_audioService.PlayFightStageMusic();
 			_gameFactory.HUD.AppearAttackButton();
 			_gameFactory.MonsterCreated += MonsterCreated;
 			_progressService.Progress.KillData.KilledMobsChanged += KilledMobsChanged;
@@ -61,7 +63,10 @@ namespace CodeBase.Infrastructure.States
 			Hid();
 		}
 
-		public void Update() { }
+		public void Update()
+		{
+			
+		}
 
 		private void DescribeHeroDeath()
 		{
@@ -74,17 +79,16 @@ namespace CodeBase.Infrastructure.States
 
 		private void MonsterCreated(GameObject monster)
 		{
-			_monstersInGame.Add(monster);
-			if (_monstersInGame.Count >= _monstersForWave)
+			if (_gameFactory.Monsters.Count >= _monstersForWave)
 				StopWave();
 		}
 
 		private void KilledMobsChanged()
 		{
-			if (_monstersInGame.Count > 0)
-				_monstersInGame.RemoveAt(_monstersInGame.Count - 1);
+			if (_gameFactory.Monsters.Count > 0)
+				_gameFactory.Monsters.RemoveAt(_gameFactory.Monsters.Count - 1);
 
-			if (_progressService.Progress.KillData.KilledMobs >= _monstersForWave && _monstersInGame.Count < 1)
+			if (_gameFactory.Monsters.Count < 1)
 				_stateMachine.Enter<GameLoopBuildingState>();
 		}
 
@@ -92,6 +96,7 @@ namespace CodeBase.Infrastructure.States
 		private void StartWave()
 		{
 			_monstersForWave += 2;
+			
 			float result = _monstersForWave / _gameFactory.Spawners.Count;
 
 			foreach (SpawnPoint spawner in _gameFactory.Spawners)

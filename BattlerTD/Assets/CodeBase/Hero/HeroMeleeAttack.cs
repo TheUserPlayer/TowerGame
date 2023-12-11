@@ -15,7 +15,8 @@ namespace CodeBase.Hero
 
 		[SerializeField] private float _damage;
 		[SerializeField] private ParticleSystem _impactFxPrefab;
-		
+		[SerializeField] private AudioSource _impactSx;
+
 		protected override void AttackButtonUnpressed()
 		{
 			if (_attackButtonPressedTimer <= _meleeAttackTimer)
@@ -35,6 +36,9 @@ namespace CodeBase.Hero
 				_hits[i].transform.GetComponentInParent<IHealth>().TakeDamage(_stats.SwordDamage * _stats.DamageMultiplier);
 				PlayTakeDamageFx(_hits[i].transform.position);
 			}
+
+			if (Hit() > 0)
+				_impactSx.Play();
 		}
 
 		private int Hit() =>
