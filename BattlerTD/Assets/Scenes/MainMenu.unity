@@ -25869,7 +25869,7 @@ PrefabInstance:
     - target: {fileID: 4547605731439745604, guid: 47f5c28cd671d484eb3943a783d193eb,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -41719,6 +41719,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8805678230649068845, guid: ee20d282680fba745a19b94bc3330858,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -411.734
+      objectReference: {fileID: 0}
+    - target: {fileID: 8805678230649068845, guid: ee20d282680fba745a19b94bc3330858,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8840489461697555282, guid: ee20d282680fba745a19b94bc3330858,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -41762,6 +41772,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 838131344}
     m_Modifications:
+    - target: {fileID: 1757598447790595438, guid: 58872ba42ed112c4b9d5c32f56430a6e,
+        type: 3}
+      propertyPath: m_text
+      value: Arrow Speed
+      objectReference: {fileID: 0}
     - target: {fileID: 5263588128875588474, guid: 58872ba42ed112c4b9d5c32f56430a6e,
         type: 3}
       propertyPath: m_Pivot.x
@@ -41867,10 +41882,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7616272008589577740, guid: 58872ba42ed112c4b9d5c32f56430a6e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7743544288055004586, guid: 58872ba42ed112c4b9d5c32f56430a6e,
         type: 3}
       propertyPath: m_Name
       value: MainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7743544288055004586, guid: 58872ba42ed112c4b9d5c32f56430a6e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

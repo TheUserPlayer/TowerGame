@@ -17,6 +17,7 @@ namespace CodeBase.Hero
 		[SerializeField] protected float _meleeAttackTimer;
 
 		protected IInputService _inputService;
+		protected IPersistentProgressService _progressService;
 
 		protected float _attackButtonPressedTimer;
 		protected Stats _stats;
@@ -25,6 +26,7 @@ namespace CodeBase.Hero
 		private void Awake()
 		{
 			_inputService = AllServices.Container.Single<IInputService>();
+			_progressService = AllServices.Container.Single<IPersistentProgressService>();
 			_inputService.AttackButtonUnpressed += AttackButtonUnpressed;
 
 			_layerMask = 1 << LayerMask.NameToLayer(Hittable);

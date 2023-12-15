@@ -10,10 +10,13 @@ namespace CodeBase.Tower
 	{
 		[SerializeField] private Rigidbody _rigidbody;
 		[SerializeField] private GameObject _explosionVFX;
-		
+
+		private int _powerShotCounter;
+
 		private IPersistentProgressService _persistentProgress;
 		public float Damage { get; set; }
 		public float MoveSpeed { get; set; }
+		public int MaxPowerShot { get; set; }
 
 		private void Start() =>
 			Destroy(gameObject, 5);
@@ -23,9 +26,21 @@ namespace CodeBase.Tower
 
 		private void OnTriggerEnter(Collider other)
 		{
-			other.transform.GetComponentInParent<IHealth>().TakeDamage(Damage);
+			other.transform.GetComponentInParent<IHealth>().TakeDamage(Damage); 
 			Instantiate(_explosionVFX, other.transform.position, Quaternion.identity);
-			Destroy(gameObject);
+		}
+
+
+		private void OnTriggerExit(Collider other)
+		{
+			if (_powerShotCounter < MaxPowerShot)
+			{
+				_powerShotCounter++;
+			}
+			else
+			{
+				Destroy(gameObject);
+			}
 		}
 	}
 }

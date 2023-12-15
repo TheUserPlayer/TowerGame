@@ -21,16 +21,35 @@ namespace CodeBase.UI.Elements
 		[SerializeField] private float _duration;
 
 		private ProgressIconButton _talentButton;
+		private IPersistentProgressService _progressService;
+		public Button BuyButton
+		{
+			get
+			{
+				return _buyButton;
+			}
+			set
+			{
+				_buyButton = value;
+			}
+		}
+
 		private void Awake()
 		{
-			AllServices.Container.Single<IPersistentProgressService>();
+			_progressService = AllServices.Container.Single<IPersistentProgressService>();
 			_closeButton.onClick.AddListener(Disappear);
-			_buyButton.onClick.AddListener(BuyTalent);
+			BuyButton.onClick.AddListener(BuyTalent);
 			Disappear();
 		}
 
 		private void BuyTalent()
 		{
+			if (_progressService.Progress.WorldData.LootData.CollectedGold < _talentButton.Price || _talentButton.Level >= _talentButton.MaxLevel)
+				return;
+
+			if (_talentButton.Level < 5)
+				_talentButton.Level++;
+			
 			_talentButton.UpdateTalent();
 		}
 
@@ -41,19 +60,19 @@ namespace CodeBase.UI.Elements
 			_skillDescription.DOFade(1, _duration);
 			_skillDescriptionBackground.DOFade(1, _duration);
 			_closeButton.targetGraphic.DOFade(1, _duration);
-			_buyButton.targetGraphic.DOFade(1, _duration);
-			_buyButton.enabled = true;
+			BuyButton.targetGraphic.DOFade(1, _duration);
+			BuyButton.enabled = true;
 			_buyButtonText.DOFade(1, _duration);
 			_closeButtonText.DOFade(1, _duration);
 		}
 
-		public void Disappear()
+		private void Disappear()
 		{
-			_buyButton.enabled = false;
+			BuyButton.enabled = false;
 			_skillDescription.DOFade(0, _duration);
 			_skillDescriptionBackground.DOFade(0, _duration);
 			_closeButton.targetGraphic.DOFade(0, _duration);
-			_buyButton.targetGraphic.DOFade(0, _duration);
+			BuyButton.targetGraphic.DOFade(0, _duration);
 			_buyButtonText.DOFade(0, _duration);
 			_closeButtonText.DOFade(0, _duration).OnComplete(() =>
 			{
@@ -61,10 +80,7 @@ namespace CodeBase.UI.Elements
 			});
 		}
 
-		public void SetDescription(string description)
-		{
-			Debug.Log("yes itsPossible");
+		public void SetDescription(string description) =>
 			_skillDescription.text = description;
-		}
 	}
 }

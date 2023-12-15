@@ -37,7 +37,6 @@ namespace CodeBase.Enemy
 
 		public virtual void OnAttackEnded()
 		{
-			Debug.Log(_isAttacking);
 			_attackCooldown = AttackCooldown;
 			_isAttacking = false;
 		}

@@ -11,7 +11,7 @@ namespace CodeBase.Tower
 		Vector3 GetMouseWorldPosition();
 		Vector3 SnapCoordinateToGrid(Vector3 position);
 		bool CanBePlaced(PlaceableObject placeableObject, bool inAnotherCollider = false);
-		void Init();
+		void Init(Grid grid);
 		void InitTowerType(TowerType towerType, int towerCost);
 		bool CanBeMoved(PlaceableObject placeableObject);
 	}

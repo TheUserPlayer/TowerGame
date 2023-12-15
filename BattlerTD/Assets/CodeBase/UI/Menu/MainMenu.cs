@@ -29,7 +29,7 @@ namespace CodeBase.UI.Menu
 			_gameFactory = gameFactory;
 		}
 
-		private void Awake()
+		private void Start()
 		{
 			_playButton.onClick.AddListener(LoadLevelState);
 			_quitButton.onClick.AddListener(Application.Quit);

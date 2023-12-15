@@ -63,7 +63,7 @@ namespace CodeBase.Tower
 
 		public BuildingService(IInputService input, IGameFactory factory, IStaticDataService staticData, IPersistentProgressService progressService)
 		{
-			_layerMask = 1 << LayerMask.NameToLayer("Default") | 1 << LayerMask.NameToLayer("Wall");
+			
 			_input = input;
 			_factory = factory;
 			_staticData = staticData;
@@ -72,9 +72,11 @@ namespace CodeBase.Tower
 			_input.TowerButtonUnpressed += TowerButtonUnpressed;
 		}
 
-		public void Init()
+		public void Init(Grid grid)
 		{
-			_grid = _factory.CreateGrid();
+			_layerMask = 1 << LayerMask.NameToLayer("Default") | 1 << LayerMask.NameToLayer("Wall");
+			_grid = Object.Instantiate(grid);
+			Debug.Log(grid.name);
 			_gridLayout = _grid.GetComponent<GridLayout>();
 			_tilemap = _grid.GetComponentInChildren<Tilemap>();
 		}
@@ -132,15 +134,17 @@ namespace CodeBase.Tower
 			}
 			else
 			{
-				BoundsInt area = new BoundsInt();
-
-				area.position = GridLayout.WorldToCell(_objectToPlace.GetStartPosition());
-				area.size = placeableObject.Size;
+				BoundsInt area = new BoundsInt {
+					position = GridLayout.WorldToCell(_objectToPlace.GetStartPosition()),
+					size = placeableObject.Size,
+				};
 
 				TileBase[] baseArray = GetTilesBlock(area, _tilemap);
 
 				foreach (TileBase tile in baseArray)
 				{
+					Debug.Log(tile);
+					
 					if (tile == placeableObject.TileBaseAfterPlaced || tile == null || tile != placeableObject.TileBase)
 					{
 						_ableToPlace = false;

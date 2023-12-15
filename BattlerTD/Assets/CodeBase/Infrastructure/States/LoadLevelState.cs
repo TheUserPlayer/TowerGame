@@ -89,15 +89,17 @@ namespace CodeBase.Infrastructure.States
 			_hero = _gameFactory.CreateHero(levelData.InitialHeroPosition);
 			CameraFollow(_hero);
 			GameObject king = InitKing(levelData);
-			InitGrid();
+			InitGrid(levelData);
 			InitSpawners(levelData);
 			//InitBossSpawners();
 			InitLootPieces();
 			InitHud(_hero, king);
 		}
 
-		private void InitGrid() =>
-			_buildingService.Init();
+		private void InitGrid(LevelStaticData levelStaticData)
+		{
+			_buildingService.Init(levelStaticData.Grid);
+		}
 
 		private GameObject InitKing(LevelStaticData levelData) =>
 			_gameFactory.CreateKing(levelData.InitialMainBuildingPosition);

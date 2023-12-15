@@ -24,15 +24,10 @@ namespace CodeBase.Enemy
       TriggerObserver.TriggerExit -= TriggerExit;
     }
     
-    private void TriggerExit(Collider obj)
-    {
+    private void TriggerExit(Collider obj) =>
       _enemyAttack.DisableAttack();
-      Debug.Log(obj.gameObject.name);
-    }
 
-    private void TriggerEnter(Collider obj)
-    {
+    private void TriggerEnter(Collider obj) =>
       _enemyAttack.EnableAttack();
-    }
   }
 }

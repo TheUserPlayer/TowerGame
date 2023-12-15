@@ -15,8 +15,6 @@ namespace CodeBase.UI.Menu
 			{
 				case 1:
 					IncreaseDamage();
-					_heroTierToUpgrade.SwordMist.gameObject.SetActive(true);
-					_heroTierToUpgradePreview.SwordMist.gameObject.SetActive(true);
 					break;
 				case 2:
 					IncreaseDamage();
@@ -24,10 +22,6 @@ namespace CodeBase.UI.Menu
 				case 3:
 					IncreaseDamage();
 					IncreaseDamage();
-					_heroTierToUpgrade.SwordFlares.gameObject.SetActive(true);
-					_heroTierToUpgrade.SwordTrail.gameObject.SetActive(true);
-					_heroTierToUpgradePreview.SwordFlares.gameObject.SetActive(true);
-					_heroTierToUpgradePreview.SwordTrail.gameObject.SetActive(true);
 					break;
 				case 4:
 					IncreaseDamage();
@@ -37,19 +31,21 @@ namespace CodeBase.UI.Menu
 					IncreaseDamage();
 					IncreaseDamage();
 					IncreaseDamage();
-					ChangeMistColorToRed();
 					break;
 				default:
 					break;
 			}
+			SetDescription(Description);
+			Debug.Log(ProgressService.Progress.HeroStats.DamageMultiplier);
 		}
-
-		private void ChangeMistColorToRed()
+		
+		protected override void SetDescription(string description)
 		{
-			ParticleSystem.MainModule swordFlaresMain = _heroTierToUpgrade.SwordFlares.main;
-			swordFlaresMain.startColor = new Color(0.5f, 0.0f, 0.1f);
+			base.SetDescription(description);
+			_skillDescription.SetDescription($"{description} + {Mathf.RoundToInt(ProgressService.Progress.HeroStats.DamageMultiplier * 100 % 100)}%");
 		}
 
+		
 		private void IncreaseDamage() =>
 			ProgressService.Progress.HeroStats.DamageMultiplier += 0.05f;
 	}

@@ -18,7 +18,7 @@ namespace CodeBase.Hero
 		private IRandomService _randomService;
 		private IPersistentProgressService _progressService;
 		private State _state;
-		private float _regenerationTimer = 7;
+		private float _regenerationTimer = 1;
 		private float _elapsedTime;
 
 		public event Action HealthChanged;
@@ -47,6 +47,7 @@ namespace CodeBase.Hero
 		{
 			_randomService = randomService;
 			_progressService = progressService;
+			_progressService.Progress.HeroState.MaxHP *= _progressService.Progress.HeroState.MaxHPMultiplier;
 		}
 
 		public void LoadProgress(PlayerProgress progress)
@@ -67,7 +68,7 @@ namespace CodeBase.Hero
 			if (_progressService != null && _regenerationTimer <= _elapsedTime)
 			{
 				_elapsedTime = 0;
-				Current += _progressService.Progress.KingState.Regeneration;
+				Current += Max * _progressService.Progress.HeroState.Regeneration;
 			}
 		}
 
@@ -79,7 +80,7 @@ namespace CodeBase.Hero
 			float mirrorHit = _randomService.Next(1, 100);
 			if (mirrorHit < _progressService.Progress.HeroStats.MirrorHitChance)
 			{
-				invoker.TakeDamage(_progressService.Progress.HeroStats.MirrorHitMultiplier);
+				invoker.TakeDamage(damage);
 			}
 			else
 			{
@@ -105,5 +106,13 @@ namespace CodeBase.Hero
 			Current = Max;
 		}
 
+		public void Heal(float points)
+		{
+			if (Current <= 0)
+				return;
+
+			Current += points;
+			HealthChanged?.Invoke();
+		}
 	}
 }

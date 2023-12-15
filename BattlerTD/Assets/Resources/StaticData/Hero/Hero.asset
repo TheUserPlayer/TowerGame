@@ -9,18 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a2f0ad25993428abfb89e24f930d7f5, type: 3}
+  m_Script: {fileID: 11500000, guid: d92c8b290dd54a4492f815a045cfae79, type: 3}
   m_Name: Hero
   m_EditorClassIdentifier: 
-  Hp: 350
-  KingHp: 2500
-  SwordDamage: 150
-  Cleavage: 1
+  Hp: 300
+  KingHp: 1500
+  SwordDamage: 75
+  Cleavage: 1.5
   ArrowDamage: 75
-  ArrowSpeed: 2100
-  MoveSpeed: 0
+  ArrowSpeed: 2000
+  MoveSpeed: 3
   Prefab: {fileID: 0}
-  ThingsToUpgrade: {fileID: 6446581667851133144, guid: feaed1d3f9bd37d49bfc0b58cd63d023,
-    type: 3}
-  ThingsToUpgradePreview: {fileID: 6727029878128563846, guid: 35e68e1cbdcaa0a48ac3fa448866ca75,
-    type: 3}
+  ThingsToUpgrade: {fileID: 0}
+  ThingsToUpgradePreview: {fileID: 0}

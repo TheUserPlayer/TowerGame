@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace CodeBase.UI.Menu
 {
 	public class CriticalHitIconButton : ProgressIconButton
@@ -5,13 +7,52 @@ namespace CodeBase.UI.Menu
 		public override void UpdateTalent()
 		{
 			base.UpdateTalent();
-			IncreaseCriticalHit();
+			switch (Level)
+			{
+				case 1:
+					IncreaseCriticalHitChance();
+					IncreaseCriticalDamage(124);
+					break;
+				case 2:
+					IncreaseCriticalHitChance();
+					IncreaseCriticalDamage(25);
+					break;
+				case 3:
+					IncreaseCriticalHitChance();
+					IncreaseCriticalHitChance();
+					IncreaseCriticalDamage(50);
+					break;
+				case 4:
+					IncreaseCriticalHitChance();
+					IncreaseCriticalHitChance();
+					IncreaseCriticalDamage(50);
+					break;
+				case 5:
+					IncreaseCriticalHitChance();
+					IncreaseCriticalHitChance();
+					IncreaseCriticalHitChance();
+					IncreaseCriticalHitChance();
+					IncreaseCriticalDamage(75);
+					break;
+				default:
+					break;
+			}
+			
+			SetDescription(Description);
+			Debug.Log(ProgressService.Progress.HeroStats.CriticalChance);
+			Debug.Log(ProgressService.Progress.HeroStats.CriticalMultiplier);
 		}
 
-		private void IncreaseCriticalHit()
+		protected override void SetDescription(string description)
 		{
-			ProgressService.Progress.HeroStats.CriticalChance += 1;
-			ProgressService.Progress.HeroStats.CriticalMultiplier += 0.25f;
+			base.SetDescription(description);
+			_skillDescription.SetDescription($"{description} + {Mathf.RoundToInt(ProgressService.Progress.HeroStats.CriticalChance * 100 % 100)}%");
 		}
+
+		private void IncreaseCriticalHitChance() =>
+			ProgressService.Progress.HeroStats.CriticalChance += 0.01f;
+
+		private void IncreaseCriticalDamage(float percent) =>
+			ProgressService.Progress.HeroStats.CriticalMultiplier += percent;
 	}
 }

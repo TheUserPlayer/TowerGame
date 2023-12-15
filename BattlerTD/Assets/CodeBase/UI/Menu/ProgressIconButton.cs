@@ -1,3 +1,5 @@
+using System;
+using CodeBase.Data;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Factory;
@@ -10,51 +12,66 @@ using UnityEngine.UI;
 
 namespace CodeBase.UI.Menu
 {
-	public abstract class ProgressIconButton : MonoBehaviour
+
+	public abstract class ProgressIconButton : MonoBehaviour, ISavedProgress
 	{
 		[SerializeField] protected SkillDescriptionWindow _skillDescription;
 
 		[SerializeField] protected string Description;
 		[SerializeField] protected TextMeshProUGUI LevelText;
 		[SerializeField] protected TextMeshProUGUI PriceText;
-		[SerializeField] protected int Level;
-		public int MaxLevel;
+		[SerializeField] private int _maxLevel;
+		public int Level { get; set; }
+
 		public Button TalentButton;
 		public int Price;
 
 		private float _elapsedTime;
 		private bool _isAppeared;
 		protected IPersistentProgressService ProgressService;
-		protected IGameFactory GameFactory;
-		protected IStaticDataService StaticData;
-		protected HeroTierToUpgrade _heroTierToUpgrade;
-		protected HeroTierToUpgrade _heroTierToUpgradePreview;
+
+		public int MaxLevel
+		{
+			get
+			{
+				return _maxLevel;
+			}
+			set
+			{
+				_maxLevel = value;
+			}
+		}
+
+		public void LoadProgress(PlayerProgress progress)
+		{
+			Level = progress.HeroStats.Level;
+		}
+
+		public void UpdateProgress(PlayerProgress progress)
+		{
+			progress.HeroStats.Level = Level;
+		}
 
 		private void Awake()
 		{
 			ProgressService = AllServices.Container.Single<IPersistentProgressService>();
-			GameFactory = AllServices.Container.Single<IGameFactory>();
-			StaticData = AllServices.Container.Single<IStaticDataService>();
-			_heroTierToUpgradePreview = GameFactory.HeroesPreview.GetComponent<HeroTierToUpgrade>();
-			_heroTierToUpgrade = StaticData.ForHero().ThingsToUpgrade;
+
 			TalentButton.onClick.AddListener(OpenDescriptionWindow);
 			PriceText.text = Price.ToString();
 		}
 
 		public virtual void UpdateTalent()
 		{
-			if (ProgressService.Progress.WorldData.LootData.CollectedGold < Price || Level >= MaxLevel)
-				return;
-
 			ProgressService.Progress.WorldData.LootData.AddGold(-Price);
-			Level++;
 			LevelText.text = $"{Level}/{MaxLevel}";
 		}
 
 		private void OpenDescriptionWindow()
 		{
-			_skillDescription.SetDescription(Description);
+			SetDescription(Description);
 			_skillDescription.Appear(this);
 		}
+
+		protected virtual void SetDescription(string description) { }
 	}
 }

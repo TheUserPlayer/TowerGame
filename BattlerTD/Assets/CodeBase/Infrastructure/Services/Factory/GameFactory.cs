@@ -44,7 +44,7 @@ namespace CodeBase.Infrastructure.Services.Factory
 		private TowerPanel _towerPanel;
 		private HeroesPreviewMainMenu _heroesPreview;
 
-		public GameObject MainPumpkinGameObject => _mainPumpkin;
+		public GameObject KingGameObject => _mainPumpkin;
 		public GameObject HeroGameObject => _heroGameObject;
 		public BossSpawnPoint BossSpawner => _bossSpawner;
 		public List<SpawnPoint> Spawners => _spawners;
@@ -83,7 +83,7 @@ namespace CodeBase.Infrastructure.Services.Factory
 		public GameObject CreateHero(Vector3 at)
 		{
 			_heroGameObject = InstantiateRegistered(AssetPath.HeroPath, at);
-			_heroGameObject.GetComponent<HeroMove>().Construct(_timerService, _inputService);
+			_heroGameObject.GetComponent<HeroMove>().Construct(_timerService, _inputService, _persistentProgressService);
 			_heroGameObject.GetComponent<IHealth>().Construct(_randomService, _persistentProgressService);
 			return _heroGameObject;
 		}
@@ -236,12 +236,6 @@ namespace CodeBase.Infrastructure.Services.Factory
 			_mainPumpkin = InstantiateRegistered(AssetPath.KingPath, at);
 			_mainPumpkin.transform.Rotate(0, 180, 0);
 			return _mainPumpkin;
-		}
-
-		public Grid CreateGrid()
-		{
-			Grid grid = InstantiateRegistered(AssetPath.Grid).GetComponent<Grid>();
-			return grid;
 		}
 
 		public void Dispose()

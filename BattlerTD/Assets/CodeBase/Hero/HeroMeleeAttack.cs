@@ -14,16 +14,14 @@ namespace CodeBase.Hero
 		private Collider[] _hits = new Collider[3];
 
 		[SerializeField] private float _damage;
+		[SerializeField] private HeroHealth _health;
 		[SerializeField] private ParticleSystem _impactFxPrefab;
 		[SerializeField] private AudioSource _impactSx;
 
 		protected override void AttackButtonUnpressed()
 		{
 			if (_attackButtonPressedTimer <= _meleeAttackTimer)
-			{
-				Debug.Log(this);
 				_animator.PlayAttack();
-			}
 
 			base.AttackButtonUnpressed();
 		}
@@ -33,7 +31,9 @@ namespace CodeBase.Hero
 			PhysicsDebug.DrawDebug(transform.position + transform.forward, _stats.SwordRadius, 1.0f);
 			for (int i = 0; i < Hit(); ++i)
 			{
-				_hits[i].transform.GetComponentInParent<IHealth>().TakeDamage(_stats.SwordDamage * _stats.DamageMultiplier);
+				float swordDamageMultiplier = _stats.SwordDamage * (_stats.DamageMultiplier + _stats.SwordDamageMultiplier);
+				_hits[i].transform.GetComponentInParent<IHealth>().TakeDamage(swordDamageMultiplier);
+				_health.Heal(swordDamageMultiplier * _progressService.Progress.HeroStats.Vampiric);
 				PlayTakeDamageFx(_hits[i].transform.position);
 			}
 

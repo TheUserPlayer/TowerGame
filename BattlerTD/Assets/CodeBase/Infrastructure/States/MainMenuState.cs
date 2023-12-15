@@ -1,5 +1,6 @@
 using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Logic;
 using CodeBase.StaticData;
@@ -17,24 +18,28 @@ namespace CodeBase.Infrastructure.States
 		private readonly LoadingCurtain _loadingCurtain;
 		private readonly IUIFactory _uiFactory;
 		private readonly IGameFactory _gameFactory;
+		private readonly ISaveLoadService _saveLoadService;
 		private readonly IStaticDataService _dataService;
 		private readonly IPersistentProgressService _progressService;
 		private readonly IGameStateMachine _stateMachine;
 		private HeroesPreviewMainMenu _heroVisual;
 
-		public MainMenuState(SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IUIFactory uiFactory, IGameFactory gameFactory, IStaticDataService dataService,
+		public MainMenuState(SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IUIFactory uiFactory, IGameFactory gameFactory, ISaveLoadService saveLoadService,
+			IStaticDataService dataService,
 			IPersistentProgressService progressService, IGameStateMachine stateMachine)
 		{
 			_sceneLoader = sceneLoader;
 			_loadingCurtain = loadingCurtain;
 			_uiFactory = uiFactory;
 			_gameFactory = gameFactory;
+			_saveLoadService = saveLoadService;
 			_dataService = dataService;
 			_progressService = progressService;
 			_stateMachine = stateMachine;
 		}
 
-		public void Exit() { }
+		public void Exit() =>
+			_saveLoadService.SaveProgress();
 
 		public void Update() { }
 

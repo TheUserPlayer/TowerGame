@@ -1757,6 +1757,7 @@ MonoBehaviour:
   _animator: {fileID: 1719534252655177834}
   _meleeAttackTimer: 0.3
   _damage: 150
+  _health: {fileID: 448347051055118558}
   _impactFxPrefab: {fileID: 8144651766300460438}
   _impactSx: {fileID: 5100497769992485101}
 --- !u!114 &5731931182452293750

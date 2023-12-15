@@ -6,7 +6,7 @@ namespace CodeBase.Data
   public class LootData
   {
     public int CollectedSilver;
-    public int CollectedGold;
+    public int CollectedGold = 5000000;
     public float RequiredPointForNextLevel = 5000000000000;
     public int Level;
     public LootPieceDataDictionary LootPiecesOnScene = new LootPieceDataDictionary();

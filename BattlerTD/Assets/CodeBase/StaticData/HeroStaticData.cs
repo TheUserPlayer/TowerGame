@@ -32,5 +32,4 @@ namespace CodeBase.StaticData
 		public HeroTierToUpgrade ThingsToUpgrade;
 		public HeroTierToUpgrade ThingsToUpgradePreview;
 	}
-
 }

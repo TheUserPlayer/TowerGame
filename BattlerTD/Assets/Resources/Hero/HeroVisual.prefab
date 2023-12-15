@@ -953,7 +953,6 @@ GameObject:
   m_Component:
   - component: {fileID: 706152922187273369}
   - component: {fileID: 6520344996669298306}
-  - component: {fileID: 2128550851133684953}
   - component: {fileID: 6727029878128563846}
   m_Layer: 5
   m_Name: HeroVisual
@@ -996,19 +995,6 @@ MonoBehaviour:
   _orbModel: {fileID: 0}
   _arrowTrapModel: {fileID: 0}
   _floorTrapModel: {fileID: 0}
---- !u!114 &2128550851133684953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4414384627529462859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cd91813ba3f41fd88580fa64a13b554, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotateSpeed: 15
 --- !u!114 &6727029878128563846
 MonoBehaviour:
   m_ObjectHideFlags: 0

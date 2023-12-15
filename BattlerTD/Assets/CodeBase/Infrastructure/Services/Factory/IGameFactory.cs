@@ -23,7 +23,7 @@ namespace CodeBase.Infrastructure.Services.Factory
 		void CreateSpawner(string spawnerId, Vector3 at, Quaternion rotation, MonsterTypeId meleeMonsterTypeId, MonsterTypeId rangeMonsterTypeId);
 		void Cleanup();
 
-		GameObject MainPumpkinGameObject { get; }
+		GameObject KingGameObject { get; }
 		GameObject HeroGameObject { get; }
 		BossSpawnPoint BossSpawner { get; }
 		List<SpawnPoint> Spawners { get; }
@@ -34,7 +34,6 @@ namespace CodeBase.Infrastructure.Services.Factory
 		HeroesPreviewMainMenu HeroesPreview { get; }
 		void CreateBossSpawner(Vector3 at, MonsterTypeId monsterTypeId, Transform parent);
 		GameObject CreateKing(Vector3 at);
-		Grid CreateGrid();
 		GameObject CreateTower(TowerType towerType, Vector3 position, Quaternion rotation);
 		HeroesPreviewMainMenu CreateHeroVisual(Vector3 at);
 	}

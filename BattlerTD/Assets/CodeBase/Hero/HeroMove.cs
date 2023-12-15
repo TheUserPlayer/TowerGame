@@ -1,4 +1,5 @@
 using CodeBase.Infrastructure.Services.Inputs;
+using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.Timers;
 using UnityEngine;
 
@@ -15,17 +16,22 @@ namespace CodeBase.Hero
 		private Camera _camera;
 		private IInputService _inputService;
 		private ITimerService _timerService;
+		private IPersistentProgressService _progressService;
 		private Vector3 _cachedRotation;
 
 
-		public void Construct(ITimerService timerService, IInputService inputService)
+		public void Construct(ITimerService timerService, IInputService inputService, IPersistentProgressService progressService)
 		{
 			_timerService = timerService;
 			_inputService = inputService;
+			_progressService = progressService;
 		}
 		
-		private void Start() =>
+		private void Start()
+		{
+			_movementSpeed = _progressService.Progress.HeroStats.MoveSpeed * _progressService.Progress.HeroStats.MoveSpeedMultiplier;
 			_camera = Camera.main;
+		}
 
 		private void Update()
 		{

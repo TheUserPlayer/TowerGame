@@ -18,7 +18,6 @@ namespace CodeBase.Hero
 		[SerializeField] private LineRenderer _attackLine;
 		[SerializeField] private Transform _heroView;
 		[SerializeField] private Transform _shootPosition;
-		[SerializeField] private CheckClosestTarget _checkClosestTarget;
 
 		private bool _isRotating;
 		private bool _shootMode;
@@ -73,8 +72,9 @@ namespace CodeBase.Hero
 		public void Shoot()
 		{
 			Arrow bullet = Instantiate(_arrow, _shootPosition.position, Quaternion.identity);
-			bullet.Damage = _stats.ArrowDamage * _stats.DamageMultiplier;
+			bullet.Damage = _stats.ArrowDamage * (_stats.DamageMultiplier + _stats.ArrowDamageMultiplier);
 			bullet.MoveSpeed = _stats.ArrowSpeed;
+			bullet.MaxPowerShot = _stats.MaxPowerShot;
 			bullet.transform.forward = -_attackLine.transform.forward;
 			_attackLine.gameObject.SetActive(false);
 		}

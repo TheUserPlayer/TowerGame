@@ -72,7 +72,7 @@ namespace CodeBase.Infrastructure.States
 		{
 			_gameFactory.HeroGameObject.TryGetComponent(out HeroDeath heroDeath);
 			heroDeath.Restart -= Restart;
-			_gameFactory.MainPumpkinGameObject.TryGetComponent(out KingHealth health);
+			_gameFactory.KingGameObject.TryGetComponent(out KingHealth health);
 			health.Restart -= Restart;
 		}
 
@@ -120,7 +120,7 @@ namespace CodeBase.Infrastructure.States
 		{
 			_gameFactory.HeroGameObject.TryGetComponent(out HeroDeath heroDeath);
 			heroDeath.Restart += Restart;
-			_gameFactory.MainPumpkinGameObject.TryGetComponent(out KingHealth health);
+			_gameFactory.KingGameObject.TryGetComponent(out KingHealth health);
 			health.Restart += Restart;
 		}
 

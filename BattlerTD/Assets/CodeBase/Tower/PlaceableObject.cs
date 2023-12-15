@@ -108,7 +108,7 @@ namespace CodeBase.Tower
 				vertices[i] = _buildingService.GridLayout.WorldToCell(worldPosition);
 			}
 
-			Size = new Vector3Int(Math.Abs((vertices[0] - vertices[1]).x), Math.Abs((vertices[0] - vertices[3]).y), 1);
+			Size = new Vector3Int(Mathf.Abs((vertices[0] - vertices[1]).x), Mathf.Abs((vertices[0] - vertices[3]).y), 1);
 		}
 
 		public virtual void Place(ObjectDrag objectDrag)

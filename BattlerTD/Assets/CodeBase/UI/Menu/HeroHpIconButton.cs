@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace CodeBase.UI.Menu
 {
 	public class HeroHpIconButton : ProgressIconButton
@@ -5,10 +7,38 @@ namespace CodeBase.UI.Menu
 		public override void UpdateTalent()
 		{
 			base.UpdateTalent();
-			IncreaseHp();
+			switch (Level)
+			{
+				case 1:
+					IncreaseHp(0.1f);
+					break;
+				case 2:
+					IncreaseHp(0.1f);
+					break;
+				case 3:
+					IncreaseHp(0.2f);
+					break;
+				case 4:
+					IncreaseHp(0.2f);
+					break;
+				case 5:
+					IncreaseHp(0.4f);
+					break;
+				default:
+					break;
+			}
+			SetDescription(Description);
+			Debug.Log(ProgressService.Progress.HeroState.MaxHPMultiplier);
 		}
 
-		private void IncreaseHp() =>
-			ProgressService.Progress.HeroState.MaxHP *= 1.05f;
+		protected override void SetDescription(string description)
+		{
+			base.SetDescription(description);
+			_skillDescription.SetDescription($"{description} + {Mathf.RoundToInt(ProgressService.Progress.HeroStats.CriticalChance * 100 % 100)}%");
+		}
+
+		
+		private void IncreaseHp(float percent) =>
+			ProgressService.Progress.HeroState.MaxHPMultiplier *= percent;
 	}
 }
