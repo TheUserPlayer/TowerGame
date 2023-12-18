@@ -11,7 +11,6 @@ using CodeBase.Infrastructure.Services.Timers;
 using CodeBase.Logic;
 using CodeBase.Tower;
 using CodeBase.UI.Services.Factory;
-using CodeBase.UI.Services.Windows;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
@@ -36,7 +35,7 @@ namespace CodeBase.Infrastructure.States
 					services.Single<IStaticDataService>()),
 				[typeof(MainMenuState)] = new MainMenuState(sceneLoader, loadingCurtain, services.Single<IUIFactory>(), services.Single<IGameFactory>(), services.Single<ISaveLoadService>(),
 					services.Single<IStaticDataService>(), services.Single<IPersistentProgressService>(), this),
-				[typeof(GameLoopAttackState)] = new GameLoopAttackState(this, services.Single<IWindowService>(), services.Single<IPersistentProgressService>(), loadingCurtain,
+				[typeof(GameLoopAttackState)] = new GameLoopAttackState(this, services.Single<IPersistentProgressService>(), loadingCurtain,
 					services.Single<ITimerService>(), services.Single<IGameFactory>(), services.Single<IAudioService>()),
 				[typeof(RestartLevelState)] = new RestartLevelState(services.Single<IGameFactory>(), services.Single<ITimerService>(), loadingCurtain, this, sceneLoader),
 				[typeof(GameLoopBuildingState)] = new GameLoopBuildingState(services.Single<IGameFactory>(), services.Single<IPersistentProgressService>(),

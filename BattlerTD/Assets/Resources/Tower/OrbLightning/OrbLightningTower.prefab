@@ -211,6 +211,7 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 0
+  _placeableObject: {fileID: 0}
 --- !u!114 &4675505029310251659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,7 +256,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2097152
   _visual: {fileID: 6013807483307285311}
-  _offset: 2.75
+  _offset: 3.45
   _sideMultiplier: 2
 --- !u!114 &8014947596135638621
 MonoBehaviour:

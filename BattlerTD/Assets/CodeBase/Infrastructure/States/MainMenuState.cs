@@ -38,8 +38,10 @@ namespace CodeBase.Infrastructure.States
 			_stateMachine = stateMachine;
 		}
 
-		public void Exit() =>
-			_saveLoadService.SaveProgress();
+		public void Exit()
+		{
+			
+		}
 
 		public void Update() { }
 

@@ -17,3 +17,4 @@ MonoBehaviour:
   EnemySpawners: []
   InitialHeroPosition: {x: 2.1711893, y: -2.1899977, z: -30.088305}
   InitialMainBuildingPosition: {x: 0, y: 0, z: 0}
+  Grid: {fileID: 0}

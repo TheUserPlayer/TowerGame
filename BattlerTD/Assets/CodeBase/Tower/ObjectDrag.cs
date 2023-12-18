@@ -9,13 +9,12 @@ namespace CodeBase.Tower
 	public class ObjectDrag : MonoBehaviour
 	{
 		[SerializeField] private LayerMask _layerMask;
+		[SerializeField] private PlaceableObject _placeableObject;
 		private Vector3 _offset;
 		private IBuildingService _buildingService;
 
-		public void Construct(IBuildingService buildingService, IInputService inputService)
-		{
+		public void Construct(IBuildingService buildingService, IInputService inputService) =>
 			_buildingService = buildingService;
-		}
 
 		public void StopDraggingCoroutine()
 		{
@@ -43,6 +42,7 @@ namespace CodeBase.Tower
 					Vector3 snappedPosition = new Vector3(transform.position.x, transform.position.y, position.z);
 					transform.position = _buildingService.SnapCoordinateToGrid(snappedPosition);
 				}
+
 				yield return null;
 			}
 		}
@@ -51,14 +51,7 @@ namespace CodeBase.Tower
 		{
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-			if (!Physics.Raycast(ray, 100,_layerMask))
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			return !Physics.Raycast(ray, 100, _layerMask);
 		}
 	}
 }

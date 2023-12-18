@@ -27,3 +27,4 @@ MonoBehaviour:
     Rotation: {x: -0, y: -0.7071099, z: -0, w: -0.70710367}
   InitialHeroPosition: {x: 3.7, y: 0.54047966, z: 3.36}
   InitialMainBuildingPosition: {x: 3.8092155, y: -1.75, z: 6.6591682}
+  Grid: {fileID: 7107137930565010515, guid: 9dfe05ced4a659e4aa7043888977aa8b, type: 3}

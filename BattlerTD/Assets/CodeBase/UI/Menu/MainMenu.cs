@@ -50,7 +50,7 @@ namespace CodeBase.UI.Menu
 
 		private void LoadLevelState()
 		{
-			_gameStateMachine.Enter<LoadLevelState, string>(_progressService.Progress.WorldData.PositionOnLevel.Level);
+			_gameStateMachine.Enter<LoadLevelState, string>("LevelOne");
 		}
 
 	}

@@ -49,10 +49,6 @@ namespace CodeBase.Hero
 					
 					_lineView.forward = movementVector;
 				}
-				else
-				{
-					//_lineView.forward = _cachedRotation;
-				}
 			}
     
 			movementVector += Physics.gravity;

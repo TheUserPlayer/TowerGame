@@ -19,7 +19,7 @@ MonoBehaviour:
     MeleeMonsterTypeId: 6
     RangeMonsterTypeId: 7
     Position: {x: -7.8267183, y: -0.831, z: -2.122223}
-    Rotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
-  InitialHeroPosition: {x: 6.87, y: 0.54047966, z: 5.9500003}
+    Rotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  InitialHeroPosition: {x: 6.87, y: 1.46, z: 5.9500003}
   InitialMainBuildingPosition: {x: 6.98, y: -1.75, z: 7.49}
   Grid: {fileID: 7107137930565010515, guid: bf8805dce4bc49946a1ec2f95054e35c, type: 3}

@@ -24,8 +24,8 @@ namespace CodeBase.Logic.EnemySpawners
 		private IGameFactory _factory;
 
 		private EnemyDeath _enemyDeath;
-		
-		public bool _isActive;
+
+		private bool _isActive;
 		private float _levelStage = 1;
 		public bool IsActive
 		{
@@ -66,11 +66,17 @@ namespace CodeBase.Logic.EnemySpawners
 			DestroySpawner?.Invoke(this);	
 		}
 
-		public void StartSpawnMeleeMob(float times) =>
-			StartCoroutine(SpawnMeleeMob(times));		
-		
-		public void StopSpawn(float times) =>
+		public void StartSpawnMeleeMob(float times)
+		{
+			_isActive = true;
+			StartCoroutine(SpawnMeleeMob(times));
+		}
+
+		public void StopSpawn(float times)
+		{
+			_isActive = false;
 			StopCoroutine(SpawnMeleeMob(times));
+		}
 
 		public void LoadProgress(PlayerProgress progress)
 		{

@@ -6,74 +6,70 @@ using CodeBase.StaticData;
 
 namespace CodeBase.Infrastructure.States
 {
-  
-  
-  public class LoadProgressState : IState
-  {
-    private const string InitialLevel = "Main";
-    private readonly GameStateMachine _gameStateMachine;
-    private readonly IPersistentProgressService _progressService;
-    private readonly ISaveLoadService _saveLoadProgress;
-    private readonly IStaticDataService _staticDataService;
 
-    public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService saveLoadProgress, IStaticDataService staticDataService)
-    {
-      _gameStateMachine = gameStateMachine;
-      _progressService = progressService;
-      _saveLoadProgress = saveLoadProgress;
-      _staticDataService = staticDataService;
-    }
 
-    public void Enter()
-    {
-      LoadProgressOrInitNew();
+	public class LoadProgressState : IState
+	{
+		private const string InitialLevel = "LevelOne";
+		private readonly GameStateMachine _gameStateMachine;
+		private readonly IPersistentProgressService _progressService;
+		private readonly ISaveLoadService _saveLoadProgress;
+		private readonly IStaticDataService _staticDataService;
 
-      _gameStateMachine.Enter<LoadLevelState, string>("LevelOne");
-    }
+		public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService saveLoadProgress,
+			IStaticDataService staticDataService)
+		{
+			_gameStateMachine = gameStateMachine;
+			_progressService = progressService;
+			_saveLoadProgress = saveLoadProgress;
+			_staticDataService = staticDataService;
+		}
 
-    public void Exit()
-    {
-    }
+		public void Enter()
+		{
+			LoadProgressOrInitNew();
 
-    public void Update()
-    {
-      
-    }
+			_gameStateMachine.Enter<MainMenuState>();
+		}
 
-    private void LoadProgressOrInitNew()
-    {
-      _progressService.Progress = 
-        _saveLoadProgress.LoadProgress() 
-        ?? NewProgress();
-    }
+		public void Exit() { }
 
-    private PlayerProgress NewProgress()
-    {
-      PlayerProgress progress =  new PlayerProgress(InitialLevel);
+		public void Update() { }
 
-      HeroStaticData heroData = _staticDataService.ForHero();
+		private void LoadProgressOrInitNew()
+		{
+			_progressService.Progress =
+				_saveLoadProgress.LoadProgress()
+				?? NewProgress();
+		}
 
-      progress.HeroState.MaxHP = heroData.Hp;
-      progress.HeroState.MaxHPMultiplier = 1;
-      progress.HeroState.Regeneration = 0;
-      progress.HeroStats.Vampiric = 0;
-      progress.HeroStats.MaxPowerShot = 0;
-      progress.HeroStats.MoveSpeed = heroData.MoveSpeed;
-      progress.HeroStats.MoveSpeedMultiplier = 1;
-      progress.HeroStats.SwordDamage = heroData.SwordDamage;
-      progress.HeroStats.SwordDamageMultiplier = 1;
-      progress.HeroStats.ArrowDamage = heroData.ArrowDamage;
-      progress.HeroStats.ArrowDamageMultiplier = 1;
-      progress.HeroStats.ArrowSpeed = heroData.ArrowSpeed;
-      progress.HeroStats.SwordRadius = heroData.Cleavage;
-      progress.HeroStats.DamageMultiplier = 1;
-      progress.HeroStats.CriticalChance = 1;
-      progress.HeroStats.CriticalMultiplier = 1;
-      progress.HeroStats.MagicShieldChance = 1;
-      progress.HeroState.ResetHp();
-      progress.KingState.MaxHP = heroData.KingHp;
-      progress.KingState.ResetHp();
-      return progress;
-    }
-  }
+		private PlayerProgress NewProgress()
+		{
+			PlayerProgress progress = new PlayerProgress(InitialLevel);
+
+			HeroStaticData heroData = _staticDataService.ForHero();
+
+			progress.HeroState.MaxHP = heroData.Hp;
+			progress.HeroState.MaxHPMultiplier = 1;
+			progress.HeroState.Regeneration = 0;
+			progress.HeroStats.Vampiric = 0;
+			progress.HeroStats.MaxPowerShot = 0;
+			progress.HeroStats.MoveSpeed = heroData.MoveSpeed;
+			progress.HeroStats.MoveSpeedMultiplier = 1;
+			progress.HeroStats.SwordDamage = heroData.SwordDamage;
+			progress.HeroStats.SwordDamageMultiplier = 1;
+			progress.HeroStats.ArrowDamage = heroData.ArrowDamage;
+			progress.HeroStats.ArrowDamageMultiplier = 1;
+			progress.HeroStats.ArrowSpeed = heroData.ArrowSpeed;
+			progress.HeroStats.SwordRadius = heroData.Cleavage;
+			progress.HeroStats.DamageMultiplier = 1;
+			progress.HeroStats.CriticalChance = 1;
+			progress.HeroStats.CriticalMultiplier = 1;
+			progress.HeroStats.MagicShieldChance = 1;
+			progress.HeroState.ResetHp();
+			progress.KingState.MaxHP = heroData.KingHp;
+			progress.KingState.ResetHp();
+			return progress;
+		}
+	}
 }
