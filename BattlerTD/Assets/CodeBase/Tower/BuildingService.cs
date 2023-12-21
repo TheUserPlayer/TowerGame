@@ -76,7 +76,6 @@ namespace CodeBase.Tower
 		{
 			_layerMask = 1 << LayerMask.NameToLayer("Default") | 1 << LayerMask.NameToLayer("Wall");
 			_grid = Object.Instantiate(grid);
-			Debug.Log(grid.name);
 			_gridLayout = _grid.GetComponent<GridLayout>();
 			_tilemap = _grid.GetComponentInChildren<Tilemap>();
 		}

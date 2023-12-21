@@ -1,7 +1,6 @@
 using System.Collections;
 using CodeBase.Weapon;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace CodeBase.Tower
 {

@@ -20,8 +20,6 @@ namespace CodeBase.Infrastructure.States
 {
 	public class LoadLevelState : IPayloadedState<string>
 	{
-		private const string InitialPointTag = "InitialPoint";
-
 		private readonly GameStateMachine _stateMachine;
 		private readonly SceneLoader _sceneLoader;
 		private readonly LoadingCurtain _loadingCurtain;
@@ -29,7 +27,6 @@ namespace CodeBase.Infrastructure.States
 		private readonly IPersistentProgressService _progressService;
 		private readonly IStaticDataService _staticData;
 		private readonly IUIFactory _uiFactory;
-		private readonly ITimerService _timerService;
 		private readonly IBuildingService _buildingService;
 		private GameObject _hero;
 		private bool _firstEnter = true;
@@ -45,7 +42,6 @@ namespace CodeBase.Infrastructure.States
 			_progressService = progressService;
 			_staticData = staticDataService;
 			_uiFactory = uiFactory;
-			_timerService = timerService;
 			_buildingService = buildingService;
 		}
 

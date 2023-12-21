@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.Timers;
 using UnityEngine;
@@ -13,7 +12,6 @@ namespace CodeBase.UI.Windows
     
     protected IPersistentProgressService ProgressService;
     protected ITimerService Timer;
-    protected PlayerProgress Progress => ProgressService.Progress;
 
     public void Construct(IPersistentProgressService progressService, ITimerService timer)
     {

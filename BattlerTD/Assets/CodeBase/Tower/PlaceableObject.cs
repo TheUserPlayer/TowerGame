@@ -76,7 +76,6 @@ namespace CodeBase.Tower
 
 		private void TriggerEnter(Collider obj)
 		{
-			Debug.Log(obj.name);
 			_inAnotherTower = true;
 		}
 

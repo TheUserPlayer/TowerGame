@@ -12,7 +12,7 @@ using UnityEngine;
 namespace CodeBase.Logic.EnemySpawners
 {
 
-	public class SpawnPoint : MonoBehaviour, ISavedProgress
+	public class SpawnPoint : MonoBehaviour
 	{
 		[SerializeField] private float _delayBetweenSpawn = 7;
 		public MonsterTypeId MeleeMonsterTypeId;
@@ -24,8 +24,8 @@ namespace CodeBase.Logic.EnemySpawners
 		private IGameFactory _factory;
 
 		private EnemyDeath _enemyDeath;
-		
-		public bool _isActive;
+
+		private bool _isActive;
 		private float _levelStage = 1;
 		public bool IsActive
 		{
@@ -66,33 +66,30 @@ namespace CodeBase.Logic.EnemySpawners
 			DestroySpawner?.Invoke(this);	
 		}
 
-		public void StartSpawnMeleeMob(float times) =>
-			StartCoroutine(SpawnMeleeMob(times));		
-		
-		public void StopSpawn(float times) =>
-			StopCoroutine(SpawnMeleeMob(times));
-
-		public void LoadProgress(PlayerProgress progress)
+		public void StartSpawnMeleeMob(float times)
 		{
-			
+			_isActive = true;
+			StartCoroutine(SpawnMeleeMob(times));
 		}
 
-		public void UpdateProgress(PlayerProgress progress)
+		public void StopSpawn(float times)
 		{
-
+			_isActive = false;
+			StopCoroutine(SpawnMeleeMob(times));
 		}
 
 		private IEnumerator SpawnMeleeMob(float times)
 		{
-			for (int i = 0; i < times; i++)
+			while (_isActive)
 			{
-				CreateMob(MeleeMonsterTypeId);
+				for (int i = 0; i < times; i++)
+				{
+					CreateMob(MeleeMonsterTypeId);
 
-				yield return new WaitForSeconds(DelayBetweenSpawn);
+					yield return new WaitForSeconds(1);
+				}
 
-				CreateMob(RangeMonsterTypeId);
-				
-				yield return new WaitForSeconds(DelayBetweenSpawn);
+				yield return new WaitForSeconds(_delayBetweenSpawn);
 			}
 		}
 

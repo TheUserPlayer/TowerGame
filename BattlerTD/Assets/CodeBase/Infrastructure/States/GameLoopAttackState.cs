@@ -6,7 +6,6 @@ using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.Timers;
 using CodeBase.Logic;
 using CodeBase.Logic.EnemySpawners;
-using CodeBase.UI.Services.Windows;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
@@ -14,7 +13,6 @@ namespace CodeBase.Infrastructure.States
 	public class GameLoopAttackState : IState
 	{
 		private readonly GameStateMachine _stateMachine;
-		private readonly IWindowService _windowService;
 		private readonly IPersistentProgressService _progressService;
 		private readonly LoadingCurtain _loadingCurtain;
 		private readonly ITimerService _timerService;
@@ -22,13 +20,12 @@ namespace CodeBase.Infrastructure.States
 		private readonly IAudioService _audioService;
 		private readonly SceneLoader _sceneLoader;
 		private IHealth _heroHealth;
-		private float _monstersForWave;
+		private float _monstersForWave = 10;
 
-		public GameLoopAttackState(GameStateMachine stateMachine, IWindowService windowService, IPersistentProgressService progressService, LoadingCurtain loadingCurtain,
+		public GameLoopAttackState(GameStateMachine stateMachine, IPersistentProgressService progressService, LoadingCurtain loadingCurtain,
 			ITimerService timerService, IGameFactory gameFactory, IAudioService audioService)
 		{
 			_stateMachine = stateMachine;
-			_windowService = windowService;
 			_progressService = progressService;
 			_loadingCurtain = loadingCurtain;
 			_timerService = timerService;
@@ -58,8 +55,7 @@ namespace CodeBase.Infrastructure.States
 			SubscribeHeroDeath();
 
 			StartWave();
-
-			_progressService.Progress.WorldData.LootData.LevelUp += LevelUp;
+			
 			Hid();
 		}
 
@@ -88,8 +84,9 @@ namespace CodeBase.Infrastructure.States
 			if (_gameFactory.Monsters.Count > 0)
 				_gameFactory.Monsters.RemoveAt(_gameFactory.Monsters.Count - 1);
 
-			if (_gameFactory.Monsters.Count < 1)
+			if (_gameFactory.Monsters.Count < 1 && _progressService.Progress.KillData.KilledMobs >= _monstersForWave * 2)
 				_stateMachine.Enter<GameLoopBuildingState>();
+			Debug.Log(_monstersForWave);
 		}
 
 
@@ -97,11 +94,9 @@ namespace CodeBase.Infrastructure.States
 		{
 			_monstersForWave += 2;
 			
-			float result = _monstersForWave / _gameFactory.Spawners.Count;
-
 			foreach (SpawnPoint spawner in _gameFactory.Spawners)
 			{
-				spawner.StartSpawnMeleeMob(result);
+				spawner.StartSpawnMeleeMob(_monstersForWave);
 			}
 		}
 

@@ -27,6 +27,7 @@ namespace CodeBase.Infrastructure.Services.Factory
 		GameObject HeroGameObject { get; }
 		BossSpawnPoint BossSpawner { get; }
 		List<SpawnPoint> Spawners { get; }
+		bool IsSpawnerActive();
 		List<GameObject> Monsters { get; }
 		Action<GameObject> MonsterCreated { get; set; }
 		Hud HUD { get; }

@@ -13,7 +13,6 @@ using CodeBase.Logic;
 using CodeBase.Logic.EnemySpawners;
 using CodeBase.StaticData;
 using CodeBase.Tower;
-using CodeBase.UI;
 using CodeBase.UI.Elements;
 using CodeBase.UI.Menu;
 using CodeBase.UI.Services.Windows;
@@ -49,7 +48,9 @@ namespace CodeBase.Infrastructure.Services.Factory
 		public BossSpawnPoint BossSpawner => _bossSpawner;
 		public List<SpawnPoint> Spawners => _spawners;
 		public Action<GameObject> MonsterCreated { get; set; }
+
 		public List<GameObject> Monsters { get; } = new List<GameObject>();
+
 		public Hud HUD { get; private set; }
 
 		public TowerPanel Panel
@@ -59,6 +60,7 @@ namespace CodeBase.Infrastructure.Services.Factory
 				return _towerPanel;
 			}
 		}
+
 		public HeroesPreviewMainMenu HeroesPreview
 		{
 			get
@@ -87,6 +89,7 @@ namespace CodeBase.Infrastructure.Services.Factory
 			_heroGameObject.GetComponent<IHealth>().Construct(_randomService, _persistentProgressService);
 			return _heroGameObject;
 		}
+
 		public HeroesPreviewMainMenu CreateHeroVisual(Vector3 at)
 		{
 			_heroesPreview = InstantiateRegistered(AssetPath.HeroVisualPath, at).GetComponent<HeroesPreviewMainMenu>();
@@ -248,6 +251,25 @@ namespace CodeBase.Infrastructure.Services.Factory
 			}
 
 			Monsters.Clear();
+		}
+
+		public bool IsSpawnerActive()
+		{
+			bool isActive = false;
+			foreach (SpawnPoint spawner in _spawners)
+			{
+				if (spawner.IsActive)
+				{
+					isActive = true;
+					break;
+				}
+				else
+				{
+					isActive = false;
+				}
+			}
+
+			return isActive;
 		}
 
 		private void DestroySpawner(SpawnPoint spawnPoint) =>

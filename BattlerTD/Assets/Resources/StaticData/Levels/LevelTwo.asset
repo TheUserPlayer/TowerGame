@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fb2e8ae91524d07b07f7954381c50dd, type: 3}
-  m_Name: LevelOne
+  m_Name: LevelTwo
   m_EditorClassIdentifier: 
-  LevelKey: LevelOne
+  LevelKey: LevelTwo
   BossSpawnerPosition: {x: 0, y: 0, z: 0}
   EnemySpawners:
   - Id: SpawnMarker_c0c67354-9eae-4080-9508-415ef6cccb5d
     MeleeMonsterTypeId: 6
     RangeMonsterTypeId: 7
-    Position: {x: -7.8267183, y: -0.831, z: -2.122223}
-    Rotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+    Position: {x: 7.01, y: -0.831, z: -16.66}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
   InitialHeroPosition: {x: 6.87, y: 1.46, z: 5.9500003}
   InitialMainBuildingPosition: {x: 6.98, y: -1.75, z: 7.49}
-  Grid: {fileID: 7107137930565010515, guid: bf8805dce4bc49946a1ec2f95054e35c, type: 3}
+  Grid: {fileID: 1210274098739659832, guid: e2c51572d91461a43b7275d074c8d0e8, type: 3}
