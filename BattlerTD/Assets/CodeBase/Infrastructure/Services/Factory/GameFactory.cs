@@ -13,7 +13,6 @@ using CodeBase.Logic;
 using CodeBase.Logic.EnemySpawners;
 using CodeBase.StaticData;
 using CodeBase.Tower;
-using CodeBase.UI;
 using CodeBase.UI.Elements;
 using CodeBase.UI.Menu;
 using CodeBase.UI.Services.Windows;

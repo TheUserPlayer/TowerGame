@@ -1,4 +1,5 @@
-﻿using CodeBase.AssetManagement;
+﻿using System.Collections.Generic;
+using CodeBase.AssetManagement;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Infrastructure.Services.Timers;
@@ -13,6 +14,9 @@ namespace CodeBase.UI.Services.Factory
 {
 	public class UIFactory : IUIFactory
 	{
+		public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
+		public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
+		
 		private const string UIRootPath = "UI/UIRoot";
 		private readonly IAssetProvider _assets;
 		private readonly IStaticDataService _staticData;
@@ -45,6 +49,7 @@ namespace CodeBase.UI.Services.Factory
 		{
 			WindowConfig config = _staticData.ForMenu(WindowId.MainMenu);
 			MainMenu window = Object.Instantiate(config.MenuPrefab, _uiRoot);
+			RegisterProgressWatchers(window.gameObject);
 			return window;
 		}
 		public void CreateWinPanel()
@@ -61,12 +66,28 @@ namespace CodeBase.UI.Services.Factory
 			//deathPanel.DeathText.text = $"You lost all your money: {_progressService.Progress.LootData.Points}";
 		}
 
-		public void CreateUIRoot() =>
+		public void CreateUIRoot()
+		{
 			_uiRoot = _assets.Instantiate(UIRootPath).transform;
+		}
 
 		public void CreateShop()
 		{
 			
+		}
+		
+		private void RegisterProgressWatchers(GameObject gameObject)
+		{
+			ISavedProgressReader progressReader = gameObject.GetComponent<ISavedProgressReader>();
+			Register(progressReader);
+		}
+		
+		private void Register(ISavedProgressReader progressReader)
+		{
+			if (progressReader is ISavedProgress progressWriter)
+				ProgressWriters.Add(progressWriter);
+
+			ProgressReaders.Add(progressReader);
 		}
 
 	}

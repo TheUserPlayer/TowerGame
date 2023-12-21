@@ -20,7 +20,7 @@ namespace CodeBase.Infrastructure.States
 		private readonly IAudioService _audioService;
 		private readonly SceneLoader _sceneLoader;
 		private IHealth _heroHealth;
-		private float _monstersForWave;
+		private float _monstersForWave = 10;
 
 		public GameLoopAttackState(GameStateMachine stateMachine, IPersistentProgressService progressService, LoadingCurtain loadingCurtain,
 			ITimerService timerService, IGameFactory gameFactory, IAudioService audioService)

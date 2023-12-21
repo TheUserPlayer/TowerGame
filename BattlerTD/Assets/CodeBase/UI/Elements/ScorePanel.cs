@@ -35,6 +35,7 @@ namespace CodeBase.UI.Elements
 
 		private void GoToMainMenu()
 		{
+			_progressService.Progress.Level++;
 			_saveLoadService.SaveProgress();
 			_stateMachine.Enter<MainMenuState>();
 		}

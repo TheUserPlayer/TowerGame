@@ -5,6 +5,7 @@ namespace CodeBase.Data
   [Serializable]
   public class PlayerProgress
   {
+    public int Level;
     public State HeroState;
     public State KingState;
     public WorldData WorldData;
@@ -15,6 +16,7 @@ namespace CodeBase.Data
 
     public PlayerProgress(string initialLevel)
     {
+      Level = 1;
       WorldData = new WorldData(initialLevel);
       HeroState = new State();
       KingState = new State();

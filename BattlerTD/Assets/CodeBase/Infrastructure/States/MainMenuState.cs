@@ -58,9 +58,17 @@ namespace CodeBase.Infrastructure.States
 			InitHeroVisual(levelStaticData);
 			InitUIRoot();
 			InitMainMenu();
+			InformProgressReaders();
 			_loadingCurtain.Hide();
 		}
 
+		private void InformProgressReaders()
+		{
+			foreach (ISavedProgressReader progressReader in _uiFactory.ProgressReaders)
+				progressReader.LoadProgress(_progressService.Progress);
+			Debug.Log(_uiFactory.ProgressReaders[0]);
+		}
+		
 		private void InitMainMenu()
 		{
 			MainMenu mainMenu = _uiFactory.CreateMainMenu();

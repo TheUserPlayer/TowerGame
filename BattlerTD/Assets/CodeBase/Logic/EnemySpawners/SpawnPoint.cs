@@ -12,7 +12,7 @@ using UnityEngine;
 namespace CodeBase.Logic.EnemySpawners
 {
 
-	public class SpawnPoint : MonoBehaviour, ISavedProgress
+	public class SpawnPoint : MonoBehaviour
 	{
 		[SerializeField] private float _delayBetweenSpawn = 7;
 		public MonsterTypeId MeleeMonsterTypeId;
@@ -78,27 +78,18 @@ namespace CodeBase.Logic.EnemySpawners
 			StopCoroutine(SpawnMeleeMob(times));
 		}
 
-		public void LoadProgress(PlayerProgress progress)
-		{
-			
-		}
-
-		public void UpdateProgress(PlayerProgress progress)
-		{
-
-		}
-
 		private IEnumerator SpawnMeleeMob(float times)
 		{
-			for (int i = 0; i < times; i++)
+			while (_isActive)
 			{
-				CreateMob(MeleeMonsterTypeId);
+				for (int i = 0; i < times; i++)
+				{
+					CreateMob(MeleeMonsterTypeId);
 
-				yield return new WaitForSeconds(DelayBetweenSpawn);
+					yield return new WaitForSeconds(1);
+				}
 
-				CreateMob(RangeMonsterTypeId);
-				
-				yield return new WaitForSeconds(DelayBetweenSpawn);
+				yield return new WaitForSeconds(_delayBetweenSpawn);
 			}
 		}
 

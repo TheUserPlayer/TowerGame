@@ -1,4 +1,5 @@
 using System;
+using CodeBase.Data;
 using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.States;
@@ -8,7 +9,7 @@ using UnityEngine.UI;
 namespace CodeBase.UI.Menu
 {
 
-	public class MainMenu : MonoBehaviour
+	public class MainMenu : MonoBehaviour, ISavedProgressReader
 	{
 		private IGameStateMachine _gameStateMachine;
 		private IPersistentProgressService _progressService;
@@ -21,6 +22,7 @@ namespace CodeBase.UI.Menu
 		[SerializeField] private GameObject _settingsMenu;
 		[SerializeField] private UpgradeMenu _upgradesMenu;
 
+		private int _level;
 
 		public void Construct(IGameStateMachine gameStateMachine, IPersistentProgressService progressService, IGameFactory gameFactory)
 		{
@@ -28,6 +30,9 @@ namespace CodeBase.UI.Menu
 			_progressService = progressService;
 			_gameFactory = gameFactory;
 		}
+
+		public void LoadProgress(PlayerProgress progress) =>
+			_level = progress.Level;
 
 		private void Start()
 		{
@@ -41,7 +46,6 @@ namespace CodeBase.UI.Menu
 
 			_upgradesButton.onClick.AddListener(() =>
 			{
-				
 				transform.GetChild(0).gameObject.SetActive(false);
 				_upgradesMenu.gameObject.SetActive(true);
 				_upgradesMenu.Construct(_gameFactory.HeroesPreview);
@@ -50,7 +54,18 @@ namespace CodeBase.UI.Menu
 
 		private void LoadLevelState()
 		{
-			_gameStateMachine.Enter<LoadLevelState, string>("LevelOne");
+			switch (_level)
+			{
+				case 1:
+					_gameStateMachine.Enter<LoadLevelState, string>("LevelOne");
+					break;
+				case 2:
+					_gameStateMachine.Enter<LoadLevelState, string>("LevelTwo");
+					break;
+				case 3:
+					_gameStateMachine.Enter<LoadLevelState, string>("LevelThree");
+					break;
+			}
 		}
 
 	}

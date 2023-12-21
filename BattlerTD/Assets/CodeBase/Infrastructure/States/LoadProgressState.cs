@@ -3,6 +3,7 @@ using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.StaticData;
+using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -38,8 +39,8 @@ namespace CodeBase.Infrastructure.States
 
 		private void LoadProgressOrInitNew()
 		{
-			_progressService.Progress =
-				_saveLoadProgress.LoadProgress()
+			_progressService.Progress = 
+				_saveLoadProgress.LoadProgress() 
 				?? NewProgress();
 		}
 
