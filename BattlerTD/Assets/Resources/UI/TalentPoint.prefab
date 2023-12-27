@@ -190,7 +190,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7438118708251930614}
   - component: {fileID: 5931120600360384488}
-  - component: {fileID: 170981866872282812}
   - component: {fileID: 5279560067028536464}
   m_Layer: 5
   m_Name: PriceLabel
@@ -228,36 +227,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1043045311907475925}
   m_CullTransparentMesh: 1
---- !u!114 &170981866872282812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1043045311907475925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 26d2e70834704ab4caaa1bcabebb3873, type: 3}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &5279560067028536464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -655,9 +624,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 883255827709912726}
-  - {fileID: 7438118708251930614}
   - {fileID: 5057732534559941760}
   - {fileID: 5888779718518263781}
+  - {fileID: 7438118708251930614}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -702,8 +671,7 @@ MonoBehaviour:
   Description: 
   LevelText: {fileID: 3184969697634388311}
   PriceText: {fileID: 8162021288765018506}
-  Level: 0
-  MaxLevel: 5
+  _maxLevel: 0
   TalentButton: {fileID: 2382544402593184583}
   Price: 15
 --- !u!1 &8753496731236490135
