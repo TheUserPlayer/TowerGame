@@ -25,6 +25,6 @@ namespace CodeBase.UI.Elements
 			UpdateCounter();
 
 		private void UpdateCounter() => 
-			Counter.text = $"{_killData.CurrentMonsterWaves} / {_killData.MonsterWavesForFinish}";
+			Counter.text = $"Current wave: {_killData.CurrentMonsterWaves}";
 	}
 }

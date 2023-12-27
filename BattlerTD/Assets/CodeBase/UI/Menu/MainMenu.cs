@@ -22,8 +22,6 @@ namespace CodeBase.UI.Menu
 		[SerializeField] private GameObject _settingsMenu;
 		[SerializeField] private UpgradeMenu _upgradesMenu;
 
-		private int _level;
-
 		public void Construct(IGameStateMachine gameStateMachine, IPersistentProgressService progressService, IGameFactory gameFactory)
 		{
 			_gameStateMachine = gameStateMachine;
@@ -31,8 +29,8 @@ namespace CodeBase.UI.Menu
 			_gameFactory = gameFactory;
 		}
 
-		public void LoadProgress(PlayerProgress progress) =>
-			_level = progress.Level;
+		public void LoadProgress(PlayerProgress progress)
+		{ }
 
 		private void Start()
 		{
@@ -54,19 +52,7 @@ namespace CodeBase.UI.Menu
 
 		private void LoadLevelState()
 		{
-			switch (_level)
-			{
-				case 1:
-					_gameStateMachine.Enter<LoadLevelState, string>("LevelOne");
-					break;
-				case 2:
-					_gameStateMachine.Enter<LoadLevelState, string>("LevelTwo");
-					break;
-				case 3:
-					_gameStateMachine.Enter<LoadLevelState, string>("LevelThree");
-					break;
-			}
+			_gameStateMachine.Enter<LoadLevelState, string>("LevelOne");
 		}
-
 	}
 }
