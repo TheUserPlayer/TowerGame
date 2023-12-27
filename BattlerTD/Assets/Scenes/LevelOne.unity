@@ -7070,6 +7070,61 @@ PrefabInstance:
       propertyPath: RangeMonsterTypeId
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 814149427597382458, guid: 96bb82d1bd89dfc458af0eb149942464,
+        type: 3}
+      propertyPath: MeleeMonsterTypeId.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 814149427597382458, guid: 96bb82d1bd89dfc458af0eb149942464,
+        type: 3}
+      propertyPath: MeleeMonsterTypeId.Array.data[0]
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 814149427597382458, guid: 96bb82d1bd89dfc458af0eb149942464,
+        type: 3}
+      propertyPath: MeleeMonsterTypeId.Array.data[1]
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 814149427597382458, guid: 96bb82d1bd89dfc458af0eb149942464,
+        type: 3}
+      propertyPath: MeleeMonsterTypeId.Array.data[2]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 814149427597382458, guid: 96bb82d1bd89dfc458af0eb149942464,
+        type: 3}
+      propertyPath: MeleeMonsterTypeId.Array.data[3]
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 814149427597382458, guid: 96bb82d1bd89dfc458af0eb149942464,
+        type: 3}
+      propertyPath: MeleeMonsterTypeId.Array.data[4]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 814149427597382458, guid: 96bb82d1bd89dfc458af0eb149942464,
+        type: 3}
+      propertyPath: MeleeMonsterTypeId.Array.data[5]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 814149427597382458, guid: 96bb82d1bd89dfc458af0eb149942464,
+        type: 3}
+      propertyPath: MeleeMonsterTypeId.Array.data[6]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 814149427597382458, guid: 96bb82d1bd89dfc458af0eb149942464,
+        type: 3}
+      propertyPath: MeleeMonsterTypeId.Array.data[7]
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 814149427597382458, guid: 96bb82d1bd89dfc458af0eb149942464,
+        type: 3}
+      propertyPath: MeleeMonsterTypeId.Array.data[8]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 814149427597382458, guid: 96bb82d1bd89dfc458af0eb149942464,
+        type: 3}
+      propertyPath: MeleeMonsterTypeId.Array.data[9]
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 6833596142562340193, guid: 96bb82d1bd89dfc458af0eb149942464,
         type: 3}
       propertyPath: m_RootOrder
