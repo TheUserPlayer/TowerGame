@@ -1,59 +1,60 @@
+using CodeBase.Hero;
 using CodeBase.Infrastructure.Services.Audio;
 using CodeBase.Infrastructure.Services.Factory;
-using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
-using CodeBase.UI.Services.Factory;
 
 namespace CodeBase.Infrastructure.States
 {
 	public class GameLoopBuildingState : IState
 	{
-		private readonly IGameFactory _factory;
-		private readonly IPersistentProgressService _progressService;
-		private readonly IUIFactory _uiFactory;
+		private readonly LoadingCurtain _loadingCurtain;
+		private readonly IGameFactory _gameFactory;
 		private readonly IAudioService _audioService;
+		private readonly GameStateMachine _stateMachine;
 		private IHealth _heroHealth;
 		private IHealth _kingHealth;
 
-		public GameLoopBuildingState(IGameFactory factory, IPersistentProgressService progressService, IUIFactory uiFactory, IAudioService audioService)
+		public GameLoopBuildingState(IGameFactory gameFactory, IAudioService audioService,
+			GameStateMachine stateMachine)
 		{
-			_factory = factory;
-			_progressService = progressService;
-			_uiFactory = uiFactory;
+			_gameFactory = gameFactory;
 			_audioService = audioService;
+			_stateMachine = stateMachine;
 		}
 
 		public void Exit() =>
-			_factory.HUD.DisappearTowerPanel();
+			_gameFactory.HUD.DisappearTowerPanel();
 
-		public void Update()
-		{
-			
-		}
+		public void Update() { }
 
 		public void Enter()
 		{
 			if (_heroHealth == null)
 			{
-				_heroHealth = _factory.HeroGameObject.GetComponent<IHealth>();
-				_kingHealth = _factory.KingGameObject.GetComponent<IHealth>();
+				_heroHealth = _gameFactory.HeroGameObject.GetComponent<IHealth>();
+				_kingHealth = _gameFactory.KingGameObject.GetComponent<IHealth>();
 			}
+			
+			_kingHealth.Current += 0.1f * _kingHealth.Max;
 			_audioService.PlayMainMenuMusic();
-			if (IsAllWaveDone())
-			{
-				_uiFactory.CreateWinPanel();
-				_heroHealth.Current = _heroHealth.Max;
-				_kingHealth.Current = _kingHealth.Max;
-				_heroHealth = null;
-				_kingHealth = null;
-			}
-			else
-			{
-				_factory.HUD.AppearTowerPanel();
-			}
+
+			_gameFactory.HUD.AppearTowerPanel();
 		}
 
-		private bool IsAllWaveDone() =>
-			_progressService.Progress.KillData.CurrentMonsterWaves >= _progressService.Progress.KillData.MonsterWavesForFinish;
+		private void SubscribeHeroDeath()
+		{
+			_gameFactory.HeroGameObject.TryGetComponent(out HeroDeath heroDeath);
+			heroDeath.Restart += Restart;
+			_gameFactory.KingGameObject.TryGetComponent(out KingHealth health);
+			health.Restart += Restart;
+		}
+
+
+		private void Restart()
+		{
+			_loadingCurtain.Show();
+
+			_stateMachine.Enter<RestartLevelState>();
+		}
 	}
 }

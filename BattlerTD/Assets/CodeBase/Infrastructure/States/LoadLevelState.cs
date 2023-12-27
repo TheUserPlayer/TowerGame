@@ -2,7 +2,6 @@
 using CodeBase.CameraLogic;
 using CodeBase.Data;
 using CodeBase.Enemy;
-using CodeBase.Hero;
 using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.StaticData;
@@ -10,7 +9,6 @@ using CodeBase.Infrastructure.Services.Timers;
 using CodeBase.Logic;
 using CodeBase.StaticData;
 using CodeBase.Tower;
-using CodeBase.UI;
 using CodeBase.UI.Elements;
 using CodeBase.UI.Services.Factory;
 using UnityEngine;
@@ -102,7 +100,7 @@ namespace CodeBase.Infrastructure.States
 		private void InitSpawners(LevelStaticData levelData)
 		{
 			foreach (EnemySpawnerStaticData spawnerData in levelData.EnemySpawners)
-				_gameFactory.CreateSpawner(spawnerData.Id, spawnerData.Position, spawnerData.Rotation, spawnerData.MeleeMonsterTypeId, spawnerData.RangeMonsterTypeId);
+				_gameFactory.CreateSpawner(spawnerData.Id, spawnerData.Position, spawnerData.Rotation, spawnerData.MeleeMonsterTypeId);
 		}
 
 		private LevelStaticData LevelStaticData()

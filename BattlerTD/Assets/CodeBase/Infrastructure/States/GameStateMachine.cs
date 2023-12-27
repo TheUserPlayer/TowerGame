@@ -38,8 +38,7 @@ namespace CodeBase.Infrastructure.States
 				[typeof(GameLoopAttackState)] = new GameLoopAttackState(this, services.Single<IPersistentProgressService>(), loadingCurtain,
 					services.Single<ITimerService>(), services.Single<IGameFactory>(), services.Single<IAudioService>()),
 				[typeof(RestartLevelState)] = new RestartLevelState(services.Single<IGameFactory>(), services.Single<ITimerService>(), loadingCurtain, this, sceneLoader),
-				[typeof(GameLoopBuildingState)] = new GameLoopBuildingState(services.Single<IGameFactory>(), services.Single<IPersistentProgressService>(),
-					services.Single<IUIFactory>(), services.Single<IAudioService>()),
+				[typeof(GameLoopBuildingState)] = new GameLoopBuildingState(services.Single<IGameFactory>(), services.Single<IAudioService>(), this),
 			};
 		}
 

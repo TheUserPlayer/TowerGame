@@ -20,7 +20,8 @@ namespace CodeBase.Infrastructure.States
 		private readonly IAudioService _audioService;
 		private readonly SceneLoader _sceneLoader;
 		private IHealth _heroHealth;
-		private float _monstersForWave = 10;
+		private float _monstersForPack = 10;
+		private float _monsterPack = 2;
 
 		public GameLoopAttackState(GameStateMachine stateMachine, IPersistentProgressService progressService, LoadingCurtain loadingCurtain,
 			ITimerService timerService, IGameFactory gameFactory, IAudioService audioService)
@@ -55,14 +56,11 @@ namespace CodeBase.Infrastructure.States
 			SubscribeHeroDeath();
 
 			StartWave();
-			
+
 			Hid();
 		}
 
-		public void Update()
-		{
-			
-		}
+		public void Update() { }
 
 		private void DescribeHeroDeath()
 		{
@@ -75,7 +73,7 @@ namespace CodeBase.Infrastructure.States
 
 		private void MonsterCreated(GameObject monster)
 		{
-			if (_gameFactory.Monsters.Count >= _monstersForWave)
+			if (_gameFactory.Monsters.Count >= _monstersForPack)
 				StopWave();
 		}
 
@@ -84,19 +82,24 @@ namespace CodeBase.Infrastructure.States
 			if (_gameFactory.Monsters.Count > 0)
 				_gameFactory.Monsters.RemoveAt(_gameFactory.Monsters.Count - 1);
 
-			if (_gameFactory.Monsters.Count < 1 && _progressService.Progress.KillData.KilledMobs >= _monstersForWave * 2)
+			if (_gameFactory.Monsters.Count < 1 && _progressService.Progress.KillData.KilledMobs >= _monstersForPack * 2)
 				_stateMachine.Enter<GameLoopBuildingState>();
-			Debug.Log(_monstersForWave);
+
+			Debug.Log(_monstersForPack);
 		}
 
 
 		private void StartWave()
 		{
-			_monstersForWave += 2;
-			
+			if (_monstersForPack < 50)
+				_monstersForPack *= 1.1f;
+
+			if (_monsterPack < 5 && _progressService.Progress.KillData.CurrentMonsterWaves % 5 == 0)
+				_monsterPack += 1;
+
 			foreach (SpawnPoint spawner in _gameFactory.Spawners)
 			{
-				spawner.StartSpawnMeleeMob(_monstersForWave);
+				spawner.StartSpawnMeleeMob(_monsterPack, _monstersForPack);
 			}
 		}
 
@@ -105,7 +108,7 @@ namespace CodeBase.Infrastructure.States
 			foreach (SpawnPoint spawner in _gameFactory.Spawners)
 			{
 				spawner.DelayBetweenSpawn *= 0.7f;
-				spawner.StopSpawn(_monstersForWave);
+				spawner.StopSpawn();
 			}
 		}
 
