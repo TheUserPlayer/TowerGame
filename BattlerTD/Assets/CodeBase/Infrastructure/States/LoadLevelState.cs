@@ -27,8 +27,7 @@ namespace CodeBase.Infrastructure.States
 		private readonly IUIFactory _uiFactory;
 		private readonly IBuildingService _buildingService;
 		private GameObject _hero;
-		private bool _firstEnter = true;
-
+		private bool _firstEnter = true; 
 		public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory,
 			IPersistentProgressService progressService, IStaticDataService staticDataService, IUIFactory uiFactory, ITimerService timerService,
 			IBuildingService buildingService)
@@ -60,7 +59,7 @@ namespace CodeBase.Infrastructure.States
 		public void Update() { }
 
 		private void OnLoaded()
-		{
+		{ 
 			InitUIRoot();
 			InitGameWorld();
 			InformProgressReaders();
