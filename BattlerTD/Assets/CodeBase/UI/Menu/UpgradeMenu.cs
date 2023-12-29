@@ -20,17 +20,13 @@ namespace CodeBase.UI.Menu
 		[SerializeField] private RectTransform _heroUpgrades;
 		[SerializeField] private RectTransform _kingUpgrades;
 		[SerializeField] private RectTransform _baseBar;
-		[SerializeField] private Page _statsPage;
 
 		private Page _currentPage;
 		private RectTransform _currentSelectionBar;
 		private IPersistentProgressService _progressService;
-		private HeroesPreviewMainMenu _heroesPreview;
 
 		public void Construct(HeroesPreviewMainMenu heroesPreview)
 		{
-			_heroesPreview = heroesPreview;
-			_heroesPreview.ChangeModelToHero();
 			ChangeCurrentSelectionBar(_baseBar);
 			SubscribeHeroButton();
 			SubscribeKingButton();
@@ -38,7 +34,7 @@ namespace CodeBase.UI.Menu
 
 		private void Awake()
 		{
-			ChangeCurrentPage(_statsPage);
+		
 			_progressService = AllServices.Container.Single<IPersistentProgressService>();
 		}
 
@@ -50,7 +46,6 @@ namespace CodeBase.UI.Menu
 		private void OnDisable()
 		{
 			ChangeUpgradesPageToHero();
-			_heroesPreview.ChangeModelToHero();
 			ResetCounters();
 		}
 
@@ -82,7 +77,6 @@ namespace CodeBase.UI.Menu
 			_heroUpgradesPage.ChangeToAttackContent();
 			ChangeCurrentPage(_heroUpgradesPage);
 			ChangeCurrentSelectionBar(_heroUpgrades);
-			_heroesPreview.ChangeModelToHero();
 		}
 
 		private void ChangeUpgradesPageToKing()
@@ -92,7 +86,6 @@ namespace CodeBase.UI.Menu
 			_kingUpgradesPage.ChangeToDefenseContent();
 			ChangeCurrentPage(_kingUpgradesPage);
 			ChangeCurrentSelectionBar(_kingUpgrades);
-			_heroesPreview.ChangeModelToKing();
 		}
 
 		private void ChangeCurrentPage(Page page)
