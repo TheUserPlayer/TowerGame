@@ -16,8 +16,7 @@ MonoBehaviour:
   BossSpawnerPosition: {x: 0, y: 0, z: 0}
   EnemySpawners:
   - Id: SpawnMarker_c0c67354-9eae-4080-9508-415ef6cccb5d
-    MeleeMonsterTypeId: 6
-    RangeMonsterTypeId: 7
+    MeleeMonsterTypeId: 060000000600000007000000
     Position: {x: -7.8267183, y: -0.831, z: -2.122223}
     Rotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   InitialHeroPosition: {x: 6.87, y: 1.46, z: 5.9500003}

@@ -214,13 +214,12 @@ namespace CodeBase.Infrastructure.Services.Factory
 			return monster;
 		}
 
-		public void CreateSpawner(string spawnerId, Vector3 at, Quaternion rotation, MonsterTypeId meleeMonsterTypeId, MonsterTypeId rangeMonsterTypeId)
+		public void CreateSpawner(string spawnerId, Vector3 at, Quaternion rotation, List<MonsterTypeId> meleeMonsterTypeId)
 		{
 			SpawnPoint spawner = InstantiateRegistered(AssetPath.Spawner, at).GetComponent<SpawnPoint>();
 			spawner.transform.rotation = rotation;
-			spawner.Construct(this);
+			spawner.Construct(this, _randomService);
 			spawner.MeleeMonsterTypeId = meleeMonsterTypeId;
-			spawner.RangeMonsterTypeId = rangeMonsterTypeId;
 			spawner.Id = spawnerId;
 			spawner.DestroySpawner += DestroySpawner;
 			Spawners.Add(spawner);

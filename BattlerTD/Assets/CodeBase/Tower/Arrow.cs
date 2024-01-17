@@ -28,19 +28,12 @@ namespace CodeBase.Tower
 		{
 			other.transform.GetComponentInParent<IHealth>().TakeDamage(Damage); 
 			Instantiate(_explosionVFX, other.transform.position, Quaternion.identity);
-		}
-
-
-		private void OnTriggerExit(Collider other)
-		{
-			if (_powerShotCounter < MaxPowerShot)
-			{
-				_powerShotCounter++;
-			}
-			else
+			_powerShotCounter++;
+			if (_powerShotCounter >= MaxPowerShot)
 			{
 				Destroy(gameObject);
 			}
+			
 		}
 	}
 }
