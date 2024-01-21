@@ -22,18 +22,26 @@ namespace CodeBase.Tower
 			Destroy(gameObject, 5);
 
 		private void Update() =>
-			_rigidbody.velocity = -transform.forward * (MoveSpeed * Time.deltaTime);
+			_rigidbody.velocity = -transform.forward * ( MoveSpeed * Time.deltaTime );
 
 		private void OnTriggerEnter(Collider other)
 		{
-			other.transform.GetComponentInParent<IHealth>().TakeDamage(Damage); 
-			Instantiate(_explosionVFX, other.transform.position, Quaternion.identity);
-			_powerShotCounter++;
-			if (_powerShotCounter >= MaxPowerShot)
+			if (other.CompareTag("Wall"))
 			{
 				Destroy(gameObject);
 			}
-			
+			else
+			{
+				Debug.Log(other.name);
+				Debug.Log(other.transform.position);
+				Debug.Log(other.transform.parent.position);
+				Debug.Log(other.transform.parent);
+				other.transform.GetComponentInParent<IHealth>().TakeDamage(Damage);
+				Instantiate(_explosionVFX, other.transform.position, Quaternion.identity);
+				_powerShotCounter++;
+				if (_powerShotCounter >= MaxPowerShot)
+					Destroy(gameObject);
+			}
 		}
 	}
 }

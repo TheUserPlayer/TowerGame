@@ -8,6 +8,7 @@ TagManager:
   - InitialPoint
   - InitialPointMainBuilding
   - FxTemporaire
+  - Wall
   layers:
   - Default
   - TransparentFX
