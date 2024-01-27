@@ -21,16 +21,19 @@ public class AdmobAdsScript : MonoBehaviour
     RewardedAd rewardedAd;
     NativeAd nativeAd;
 
-
+    private void Awake()
+    {
+        LoadBannerAd();
+        LoadRewardedAd();
+        LoadInterstitialAd();
+    }
     private void Start()
     { 
         MobileAds.RaiseAdEventsOnUnityMainThread = true;
         MobileAds.Initialize(initStatus => {
 
             print("Ads Initialised !!");
-            LoadBannerAd();
-            LoadRewardedAd();
-            LoadInterstitialAd();
+            ShowInterstitialAd();
         }
         );
 #if UNITY_ANDROID
