@@ -7,7 +7,7 @@ namespace CodeBase.Hero
 	public class HeroDeath : MonoBehaviour
 	{
 		public HeroHealth Health;
-
+		public DeathReclama reclamma;
 		public HeroMove Move;
 		public HeroAnimator Animator;
 
@@ -31,11 +31,13 @@ namespace CodeBase.Hero
 		private void HealthChanged()
 		{
 			if (!_isDead && Health.Current <= 0)
-				Die();
+				Die(); 
 		}
 
 		private void Die()
 		{
+
+			reclamma.ShowRewardedAd();
 			_isDead = true;
 			Move.enabled = false;
 			Animator.PlayDeath();
